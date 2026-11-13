@@ -150,18 +150,18 @@ fun DownloadTaskDetailScreen(
         SectionCard(title = "Logs") {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
-                    text = "系统层面上的诊断Logs。",
+                    text = "System-level diagnostic logs.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 WorkshopOutlinedButton(onClick = onShareDebugLog) {
-                    Text("分享调试Logs")
+                    Text("Share Debug Log")
                 }
                 WorkshopOutlinedButton(onClick = onShareRuntimeLog) {
-                    Text("分享运行Logs")
+                    Text("Share Runtime Log")
                 }
                 if (task.logs.isEmpty()) {
-                    Text("暂无Logs。", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("No logs available.", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 } else {
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         task.logs.forEach { line ->
