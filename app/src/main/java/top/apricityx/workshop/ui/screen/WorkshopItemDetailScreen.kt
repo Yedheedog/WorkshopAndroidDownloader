@@ -158,7 +158,7 @@ internal fun WorkshopItemDetailScreen(
         WorkshopCenteredState(
             title = "Request Timed Out",
             message = state.message
-                ?: "Request Timed Out，您的网络环境可能不支持直连创意工坊，请开启加速器加速 steam 或科学上网后Retry。",
+                ?: "The request timed out. Your network may not support direct access to Steam Workshop. Try a VPN or network accelerator, then retry.",
             actionLabel = "Retry",
             onAction = onRetry,
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
@@ -231,7 +231,7 @@ internal fun WorkshopItemDetailScreen(
                             imageVector = Icons.Default.Refresh,
                             contentDescription = null,
                         )
-                        Text(" Retry加载详情")
+                        Text(" Retry Loading Details")
                     }
                 }
             }
@@ -283,7 +283,7 @@ internal fun WorkshopItemDetailScreen(
                                     if (state.translatedDescription == null) {
                                         "Translate Description"
                                     } else {
-                                        "重新Translate Description"
+                                        "Translate Description Again"
                                     },
                                 )
                             }
@@ -335,7 +335,7 @@ internal fun WorkshopItemDetailScreen(
 
             state.message?.let { message ->
                 WorkshopMessageBanner(
-                    message = "$message\n如果网络不稳定，可以稍后Retry；下载功能仍可直接使用。",
+                    message = "$message\nIf your network is unstable, try again later. Downloads may still work.",
                     tone = MessageTone.Error,
                 )
             }
@@ -343,12 +343,12 @@ internal fun WorkshopItemDetailScreen(
             detail?.requiredItems?.takeIf { requiredItems -> requiredItems.isNotEmpty() }?.let { requiredItems ->
                 WorkshopPanelCard {
                     Text(
-                        text = "Dependencies内容",
+                        text = "Dependencies",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                     Text(
-                        text = "下载这个内容前，建议先准备以下 ${requiredItems.size} 个Dependencies工坊物品。",
+                        text = "We recommend downloading these ${requiredItems.size} Workshop dependencies before downloading this item.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -365,24 +365,24 @@ internal fun WorkshopItemDetailScreen(
             detail?.let {
                 WorkshopPanelCard {
                     Text(
-                        text = "Comments区",
+                        text = "Comments",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                     Text(
                         text = when {
                             state.isLoadingComments && it.comments.isEmpty() ->
-                                "Comments区Loading…"
+                                "CommentsLoading…"
                             it.commentCount == 0L ->
-                                "这件模组目前没有公开Comments。"
+                                "There are no public comments for this item."
                             it.commentCount != null && it.commentTotalPages != null ->
-                                "当前第 ${it.commentPage} / ${it.commentTotalPages} 页，Steam 共 ${formatCount(it.commentCount)} 条Comments。"
+                                "Page ${it.commentPage} of ${it.commentTotalPages} · ${formatCount(it.commentCount)} Steam comments."
                             it.commentCount != null ->
-                                "当前第 ${it.commentPage} 页，Steam 共 ${formatCount(it.commentCount)} 条Comments。"
+                                "Page ${it.commentPage} · ${formatCount(it.commentCount)} Steam comments."
                             it.comments.isNotEmpty() ->
-                                "当前第 ${it.commentPage} 页，已加载 ${it.comments.size} 条公开Comments。"
+                                "Page ${it.commentPage} · ${it.comments.size} public comments loaded."
                             else ->
-                                "暂时没有读取到公开Comments，你也可以直接打开 Steam Comments页查看。"
+                                "No public comments could be loaded. You can open the Steam comments page directly."
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -402,7 +402,7 @@ internal fun WorkshopItemDetailScreen(
                                 imageVector = Icons.Default.Refresh,
                                 contentDescription = null,
                             )
-                            Text(" Retry加载Comments")
+                            Text(" Retry Loading Comments")
                         }
                     }
 
@@ -411,7 +411,7 @@ internal fun WorkshopItemDetailScreen(
                             message = if (it.comments.isEmpty()) {
                                 "Loading"
                             } else {
-                                "正在加载Comments…"
+                                "Loading comments…"
                             },
                         )
                     }
@@ -451,7 +451,7 @@ internal fun WorkshopItemDetailScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
-                            "在 Steam 中打开对应Comments页",
+                            "Open the corresponding comments page on Steam",
                         )
                     }
                 }
@@ -470,16 +470,16 @@ internal fun WorkshopItemDetailScreen(
                         ),
                     )
                     DetailLine(
-                        label = "文件Size",
+                        label = "File Size",
                         value = it.fileSizeBytes?.let(::formatBinaryFileSize) ?: "Unknown",
                     )
                     DetailLine(label = "Last Updated", value = it.timeUpdatedEpochSeconds?.let(::formatUpdatedTime) ?: "Unknown")
-                    DetailLine(label = "Subscriptions数", value = it.subscriptions?.let(::formatCount) ?: "Unknown")
+                    DetailLine(label = "Subscriptions", value = it.subscriptions?.let(::formatCount) ?: "Unknown")
                     DetailLine(label = "Favorites", value = it.favorited?.let(::formatCount) ?: "Unknown")
-                    DetailLine(label = "Views量", value = it.views?.let(::formatCount) ?: "Unknown")
+                    DetailLine(label = "Views", value = it.views?.let(::formatCount) ?: "Unknown")
                     DetailLine(
                         label = "Tags",
-                        value = it.tags.takeIf { tags -> tags.isNotEmpty() }?.joinToString(" / ") ?: "暂无Tags",
+                        value = it.tags.takeIf { tags -> tags.isNotEmpty() }?.joinToString(" / ") ?: "No Tags",
                     )
                 }
             }
