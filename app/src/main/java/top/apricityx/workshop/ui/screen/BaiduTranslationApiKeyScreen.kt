@@ -264,6 +264,6 @@ private val baiduTutorialSteps = listOf(
         imageResId = R.drawable.baidu_ai_text_tutorial_step_10_result,
     ),
     BaiduTutorialStep(
-        text = "回到 App，把 AppID 和 API Key 填进上面的配置区后Save即可使用。",
+        text = "Return to the app, enter your AppID and API key above, and save to start using translation.",
     ),
 )
