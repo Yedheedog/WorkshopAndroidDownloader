@@ -52,12 +52,12 @@ fun BaiduTranslationApiKeyScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         WorkshopPanelCard {
-            Text("百度大模型文本翻译凭据", style = MaterialTheme.typography.titleLarge)
+            Text("Baidu AI Translation Credentials", style = MaterialTheme.typography.titleLarge)
             Text(
                 text = if (state.hasSavedCredentials) {
-                    "当前已经保存过完整凭据。修改后点保存会覆盖原值；清空后保存可移除本地配置。"
+                    "Complete credentials are already saved. Saving changes will overwrite them; clearing the fields and saving will remove the local configuration."
                 } else {
-                    "需要同时填写百度大模型文本翻译的 AppID 和 API Key。留空后保存会清除对应本地配置。"
+                    "Enter both the AppID and API key for Baidu AI text translation. Saving empty fields will clear the corresponding local settings."
                 },
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -86,7 +86,7 @@ fun BaiduTranslationApiKeyScreen(
                 onClick = onSave,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("保存")
+                Text("Save")
             }
 
             WorkshopOutlinedButton(
@@ -101,15 +101,15 @@ fun BaiduTranslationApiKeyScreen(
                             .padding(end = 8.dp),
                         strokeWidth = 2.dp,
                     )
-                    Text("正在测试翻译…")
+                    Text("Testing Translation…")
                 } else {
-                    Text("测试翻译")
+                    Text("Test Translation")
                 }
             }
         }
 
         WorkshopPanelCard {
-            Text("示例文本", style = MaterialTheme.typography.titleMedium)
+            Text("Sample Text", style = MaterialTheme.typography.titleMedium)
             Text(
                 text = state.sampleSourceText,
                 style = MaterialTheme.typography.bodyMedium,
@@ -117,7 +117,7 @@ fun BaiduTranslationApiKeyScreen(
             )
 
             state.testResultText?.let { testResultText ->
-                Text("测试结果", style = MaterialTheme.typography.titleMedium)
+                Text("Test Result", style = MaterialTheme.typography.titleMedium)
                 Text(
                     text = testResultText,
                     style = MaterialTheme.typography.bodyMedium,
@@ -127,7 +127,7 @@ fun BaiduTranslationApiKeyScreen(
 
             state.testFailureReason?.let { testFailureReason ->
                 Text(
-                    text = "失败原因",
+                    text = "Reason for Failure",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.error,
                 )
@@ -158,12 +158,12 @@ private fun BaiduTranslationTutorialCard(
 ) {
     WorkshopPanelCard {
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("教程", style = MaterialTheme.typography.titleLarge)
+            Text("Setup Guide", style = MaterialTheme.typography.titleLarge)
             WorkshopOutlinedButton(
                 onClick = onOpenApiKeyGuide,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("打开百度翻译开放平台")
+                Text("Open Baidu Translation Platform")
             }
 
             baiduTutorialSteps.forEachIndexed { index, step ->
@@ -221,49 +221,49 @@ private data class BaiduTutorialStep(
 
 private val baiduTutorialSteps = listOf(
     BaiduTutorialStep(
-        text = "进入百度翻译开放平台。",
-        note = "入口地址：`https://fanyi-api.baidu.com/product/13`",
+        text = "Open the Baidu Translation Platform.",
+        note = "Platform URL: `https://fanyi-api.baidu.com/product/13`",
     ),
     BaiduTutorialStep(
-        text = "点击“立即使用”。",
+        text = "Tap “Get Started”.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_02,
     ),
     BaiduTutorialStep(
-        text = "根据提示填写个人信息。",
+        text = "Enter your personal information as prompted.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_03,
     ),
     BaiduTutorialStep(
-        text = "完成实名认证。",
+        text = "Complete identity verification.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_04,
     ),
     BaiduTutorialStep(
-        text = "认证完成后回到控制台，点击“立即开通”。",
+        text = "After verification, return to the console and tap “Activate Now”.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_05,
     ),
     BaiduTutorialStep(
-        text = "选择“大模型文本翻译”。",
+        text = "Select “Large Language Model Text Translation”.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_06,
     ),
     BaiduTutorialStep(
-        text = "随便填一点测试内容后提交申请。",
+        text = "Enter some sample content and submit the application.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_07,
     ),
     BaiduTutorialStep(
-        text = "回到主界面，点击“开发者信息”。",
+        text = "Return to the main page and tap “Developer Information”.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_08,
     ),
     BaiduTutorialStep(
-        text = "把 AppID 记下来。",
+        text = "Make a note of your AppID.",
     ),
     BaiduTutorialStep(
-        text = "进入“API Key 管理”，创建一个新的 API Key，名称可以随便填。",
+        text = "Open “API Key Management” and create a new API key. You can choose any name.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_10,
     ),
     BaiduTutorialStep(
-        text = "把新建出来的 API Key 也记下来。",
+        text = "Make a note of the new API key.",
         imageResId = R.drawable.baidu_ai_text_tutorial_step_10_result,
     ),
     BaiduTutorialStep(
-        text = "回到 App，把 AppID 和 API Key 填进上面的配置区后保存即可使用。",
+        text = "回到 App，把 AppID 和 API Key 填进上面的配置区后Save即可使用。",
     ),
 )
