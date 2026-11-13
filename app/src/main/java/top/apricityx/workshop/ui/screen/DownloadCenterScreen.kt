@@ -57,13 +57,13 @@ fun DownloadCenterScreen(
     ) {
         item {
             ScreenSummaryCard(
-                title = "下载中心",
-                subtitle = "这里保留下载任务的状态、进度和日志；已导出的文件统一到模组库管理。",
+                title = "Download Center",
+                subtitle = "Track download task status, progress, and logs here. Manage exported files in the Mod Library.",
                 metrics = listOf(
-                    "运行中 ${state.runningCount}",
-                    "排队 ${state.queuedCount}",
-                    "暂停 ${state.pausedCount}",
-                    "历史 ${state.finishedCount}",
+                    "Running ${state.runningCount}",
+                    "Queued ${state.queuedCount}",
+                    "Paused ${state.pausedCount}",
+                    "History ${state.finishedCount}",
                 ),
             )
         }
@@ -71,16 +71,16 @@ fun DownloadCenterScreen(
         if (state.tasks.isEmpty()) {
             item {
                 WorkshopCenteredState(
-                    title = "下载中心还是空的",
-                    message = "去创意工坊里选择模组后，任务会出现在这里。",
+                    title = "Download Center还是空的",
+                    message = "Choose an item in the Workshop to add a task here.",
                 )
             }
         } else {
             if (state.activeTasks.isNotEmpty()) {
                 item {
                     SectionHeading(
-                        title = "正在进行",
-                        subtitle = "包含运行中、排队中和已暂停的任务。",
+                        title = "In Progress",
+                        subtitle = "Includes running, queued, and paused tasks.",
                     )
                 }
 
@@ -96,8 +96,8 @@ fun DownloadCenterScreen(
             if (state.historyTasks.isNotEmpty()) {
                 item {
                     SectionHeading(
-                        title = "历史记录",
-                        subtitle = "已完成或失败的任务会保留在这里，方便查看状态和日志。",
+                        title = "History",
+                        subtitle = "Completed and failed tasks stay here so you can review their status and logs.",
                     )
                 }
 
