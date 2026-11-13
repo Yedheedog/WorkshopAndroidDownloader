@@ -103,7 +103,7 @@ internal fun WorkshopItemDetailScreen(
         add(
             WorkshopItemSummaryMetric(
                 icon = Icons.Default.Person,
-                label = "作者",
+                label = "Author",
                 value = detail?.authorName ?: state.item.authorName,
             ),
         )
@@ -111,7 +111,7 @@ internal fun WorkshopItemDetailScreen(
             add(
                 WorkshopItemSummaryMetric(
                     icon = Icons.Default.Download,
-                    label = "订阅",
+                    label = "Subscriptions",
                     value = formatCount(it),
                 ),
             )
@@ -120,7 +120,7 @@ internal fun WorkshopItemDetailScreen(
             add(
                 WorkshopItemSummaryMetric(
                     icon = Icons.Default.Visibility,
-                    label = "浏览",
+                    label = "Views",
                     value = formatCount(it),
                 ),
             )
@@ -129,7 +129,7 @@ internal fun WorkshopItemDetailScreen(
             add(
                 WorkshopItemSummaryMetric(
                     icon = Icons.Default.Storage,
-                    label = "大小",
+                    label = "Size",
                     value = formatBinaryFileSize(it),
                 ),
             )
@@ -138,7 +138,7 @@ internal fun WorkshopItemDetailScreen(
             add(
                 WorkshopItemSummaryMetric(
                     icon = Icons.Default.Extension,
-                    label = "前置",
+                    label = "Dependencies",
                     value = requiredItems.size.toString(),
                 ),
             )
@@ -147,7 +147,7 @@ internal fun WorkshopItemDetailScreen(
             add(
                 WorkshopItemSummaryMetric(
                     icon = Icons.AutoMirrored.Filled.Comment,
-                    label = "评论",
+                    label = "Comments",
                     value = formatCount(it),
                 ),
             )
@@ -156,10 +156,10 @@ internal fun WorkshopItemDetailScreen(
 
     if (state.showConnectionErrorState) {
         WorkshopCenteredState(
-            title = "啊哦，加载超时",
+            title = "Request Timed Out",
             message = state.message
-                ?: "啊哦，加载超时，您的网络环境可能不支持直连创意工坊，请开启加速器加速 steam 或科学上网后重试。",
-            actionLabel = "重试",
+                ?: "Request Timed Out，您的网络环境可能不支持直连创意工坊，请开启加速器加速 steam 或科学上网后Retry。",
+            actionLabel = "Retry",
             onAction = onRetry,
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
         )
@@ -191,7 +191,7 @@ internal fun WorkshopItemDetailScreen(
                     enabled = !isInModLibrary,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(if (isInModLibrary) "已在模组库中" else "添加到库")
+                    Text(if (isInModLibrary) "In Mod Library" else "Add to Library")
                 }
 
                 WorkshopButton(
@@ -231,7 +231,7 @@ internal fun WorkshopItemDetailScreen(
                             imageVector = Icons.Default.Refresh,
                             contentDescription = null,
                         )
-                        Text(" 重试加载详情")
+                        Text(" Retry加载详情")
                     }
                 }
             }
@@ -245,14 +245,14 @@ internal fun WorkshopItemDetailScreen(
             ) {
                 WorkshopPanelCard {
                     Text(
-                        text = "简介",
+                        text = "Description",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                     if (description.isNotBlank()) {
                         if (state.translatedDescription != null) {
                             Text(
-                                text = "原文",
+                                text = "Original",
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.primary,
                             )
@@ -277,13 +277,13 @@ internal fun WorkshopItemDetailScreen(
                                     modifier = Modifier.size(18.dp),
                                     strokeWidth = 2.dp,
                                 )
-                                Text(" 正在翻译描述…")
+                                Text(" Translating description…")
                             } else {
                                 Text(
                                     if (state.translatedDescription == null) {
-                                        "翻译描述"
+                                        "Translate Description"
                                     } else {
-                                        "重新翻译描述"
+                                        "重新Translate Description"
                                     },
                                 )
                             }
@@ -301,7 +301,7 @@ internal fun WorkshopItemDetailScreen(
                             },
                             modifier = Modifier.fillMaxWidth(),
                         ) {
-                            Text("查看更新日志")
+                            Text("View Changelog")
                         }
                     }
 
@@ -314,7 +314,7 @@ internal fun WorkshopItemDetailScreen(
 
                     state.translatedDescription?.takeIf(String::isNotBlank)?.let { translatedDescription ->
                         Text(
-                            text = "译文",
+                            text = "Translation",
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary,
                         )
@@ -330,12 +330,12 @@ internal fun WorkshopItemDetailScreen(
             }
 
             if (state.isLoading) {
-                WorkshopLoadingBlock(label = "正在加载更完整的模组详情。")
+                WorkshopLoadingBlock(label = "Loading additional item details…")
             }
 
             state.message?.let { message ->
                 WorkshopMessageBanner(
-                    message = "$message\n如果网络不稳定，可以稍后重试；下载功能仍可直接使用。",
+                    message = "$message\n如果网络不稳定，可以稍后Retry；下载功能仍可直接使用。",
                     tone = MessageTone.Error,
                 )
             }
@@ -343,12 +343,12 @@ internal fun WorkshopItemDetailScreen(
             detail?.requiredItems?.takeIf { requiredItems -> requiredItems.isNotEmpty() }?.let { requiredItems ->
                 WorkshopPanelCard {
                     Text(
-                        text = "前置内容",
+                        text = "Dependencies内容",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                     Text(
-                        text = "下载这个内容前，建议先准备以下 ${requiredItems.size} 个前置工坊物品。",
+                        text = "下载这个内容前，建议先准备以下 ${requiredItems.size} 个Dependencies工坊物品。",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -365,24 +365,24 @@ internal fun WorkshopItemDetailScreen(
             detail?.let {
                 WorkshopPanelCard {
                     Text(
-                        text = "评论区",
+                        text = "Comments区",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                     Text(
                         text = when {
                             state.isLoadingComments && it.comments.isEmpty() ->
-                                "评论区加载中…"
+                                "Comments区Loading…"
                             it.commentCount == 0L ->
-                                "这件模组目前没有公开评论。"
+                                "这件模组目前没有公开Comments。"
                             it.commentCount != null && it.commentTotalPages != null ->
-                                "当前第 ${it.commentPage} / ${it.commentTotalPages} 页，Steam 共 ${formatCount(it.commentCount)} 条评论。"
+                                "当前第 ${it.commentPage} / ${it.commentTotalPages} 页，Steam 共 ${formatCount(it.commentCount)} 条Comments。"
                             it.commentCount != null ->
-                                "当前第 ${it.commentPage} 页，Steam 共 ${formatCount(it.commentCount)} 条评论。"
+                                "当前第 ${it.commentPage} 页，Steam 共 ${formatCount(it.commentCount)} 条Comments。"
                             it.comments.isNotEmpty() ->
-                                "当前第 ${it.commentPage} 页，已加载 ${it.comments.size} 条公开评论。"
+                                "当前第 ${it.commentPage} 页，已加载 ${it.comments.size} 条公开Comments。"
                             else ->
-                                "暂时没有读取到公开评论，你也可以直接打开 Steam 评论页查看。"
+                                "暂时没有读取到公开Comments，你也可以直接打开 Steam Comments页查看。"
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -402,16 +402,16 @@ internal fun WorkshopItemDetailScreen(
                                 imageVector = Icons.Default.Refresh,
                                 contentDescription = null,
                             )
-                            Text(" 重试加载评论")
+                            Text(" Retry加载Comments")
                         }
                     }
 
                     if (state.isLoadingComments) {
                         CommentLoadingBlock(
                             message = if (it.comments.isEmpty()) {
-                                "加载中"
+                                "Loading"
                             } else {
-                                "正在加载评论…"
+                                "正在加载Comments…"
                             },
                         )
                     }
@@ -430,14 +430,14 @@ internal fun WorkshopItemDetailScreen(
                                 enabled = !state.isLoadingComments && it.hasPreviousCommentPage,
                                 modifier = Modifier.weight(1f),
                             ) {
-                                Text("上一页")
+                                Text("Previous")
                             }
                             WorkshopOutlinedButton(
                                 onClick = onLoadNextCommentsPage,
                                 enabled = !state.isLoadingComments && it.hasNextCommentPage,
                                 modifier = Modifier.weight(1f),
                             ) {
-                                Text("下一页")
+                                Text("Next")
                             }
                         }
                     }
@@ -451,35 +451,35 @@ internal fun WorkshopItemDetailScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
-                            "在 Steam 中打开对应评论页",
+                            "在 Steam 中打开对应Comments页",
                         )
                     }
                 }
 
                 WorkshopPanelCard {
                     Text(
-                        text = "模组信息",
+                        text = "Item Details",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                     MetricFlow(
                         metrics = listOfNotNull(
-                            it.timeUpdatedEpochSeconds?.let(::formatUpdatedTime)?.let { value -> "更新 $value" },
-                            it.favorited?.let(::formatCount)?.let { value -> "收藏 $value" },
-                            it.tags.takeIf { tags -> tags.isNotEmpty() }?.let { tags -> "标签 ${tags.size}" },
+                            it.timeUpdatedEpochSeconds?.let(::formatUpdatedTime)?.let { value -> "Updated $value" },
+                            it.favorited?.let(::formatCount)?.let { value -> "Favorites $value" },
+                            it.tags.takeIf { tags -> tags.isNotEmpty() }?.let { tags -> "${tags.size} Tags" },
                         ),
                     )
                     DetailLine(
-                        label = "文件大小",
-                        value = it.fileSizeBytes?.let(::formatBinaryFileSize) ?: "未知",
+                        label = "文件Size",
+                        value = it.fileSizeBytes?.let(::formatBinaryFileSize) ?: "Unknown",
                     )
-                    DetailLine(label = "更新时间", value = it.timeUpdatedEpochSeconds?.let(::formatUpdatedTime) ?: "未知")
-                    DetailLine(label = "订阅数", value = it.subscriptions?.let(::formatCount) ?: "未知")
-                    DetailLine(label = "收藏数", value = it.favorited?.let(::formatCount) ?: "未知")
-                    DetailLine(label = "浏览量", value = it.views?.let(::formatCount) ?: "未知")
+                    DetailLine(label = "Last Updated", value = it.timeUpdatedEpochSeconds?.let(::formatUpdatedTime) ?: "Unknown")
+                    DetailLine(label = "Subscriptions数", value = it.subscriptions?.let(::formatCount) ?: "Unknown")
+                    DetailLine(label = "Favorites", value = it.favorited?.let(::formatCount) ?: "Unknown")
+                    DetailLine(label = "Views量", value = it.views?.let(::formatCount) ?: "Unknown")
                     DetailLine(
-                        label = "标签",
-                        value = it.tags.takeIf { tags -> tags.isNotEmpty() }?.joinToString(" / ") ?: "暂无标签",
+                        label = "Tags",
+                        value = it.tags.takeIf { tags -> tags.isNotEmpty() }?.joinToString(" / ") ?: "暂无Tags",
                     )
                 }
             }
@@ -553,7 +553,7 @@ private fun CommentLine(
                 MetricPill(
                     text = comment.postedEpochSeconds
                         ?.let(::formatUpdatedTime)
-                        ?: comment.postedDisplayText.ifBlank { "时间未知" },
+                        ?: comment.postedDisplayText.ifBlank { "时间Unknown" },
                 )
             }
             SelectionContainer {
@@ -663,7 +663,7 @@ private fun RequiredItemLine(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = "暂无\n封面",
+                        text = "No\nCover",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -689,11 +689,11 @@ private fun RequiredItemLine(
                         overflow = TextOverflow.Ellipsis,
                     )
                     if (isDownloaded) {
-                        MetricPill(text = "已下载")
+                        MetricPill(text = "Downloaded")
                     }
                 }
                 Text(
-                    text = item.descriptionSnippet.ifBlank { "暂无描述" },
+                    text = item.descriptionSnippet.ifBlank { "No Description" },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
