@@ -160,7 +160,7 @@ fun SettingsScreen(
                     }
                 }
 //            Text(
-//                "Steam 登录过程摘要会直接写入运行Logs；需要排查时，请在下方“Logs”区域查看、分享或导出。",
+//                "Steam Sign In过程摘要会直接写入运行Logs；需要排查时，请在下方“Logs”区域查看、分享或导出。",
 //                style = MaterialTheme.typography.bodySmall,
 //                color = MaterialTheme.colorScheme.onSurfaceVariant,
 //            )
@@ -886,7 +886,7 @@ private fun SteamLoginDialog(
                         else -> if (state.mode == SteamLoginDialogMode.Reauthenticate) {
                             "Re-authenticate"
                         } else {
-                            "登录"
+                            "Sign In"
                         }
                     },
                 )
@@ -897,9 +897,9 @@ private fun SteamLoginDialog(
             isTokenMode -> {
                 Text(
                     if (state.mode == SteamLoginDialogMode.Reauthenticate) {
-                        "可直接粘贴新的 Steam Refresh Token 完成Re-authenticate。"
+                        "Paste a new Steam Refresh Token to re-authenticate."
                     } else {
-                        "如果你已经拿到 Steam Refresh Token，也可以直接导入，不必Keep Waiting手机确认。"
+                        "If you already have a Steam Refresh Token, you can import it directly instead of waiting for mobile confirmation."
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -947,7 +947,7 @@ private fun SteamLoginDialog(
 
             isConfirmationChallenge -> {
                 Text(
-                    state.challengeMessage ?: "请在 Steam 手机 App 中完成确认，应用会自动Keep Waiting结果。",
+                    state.challengeMessage ?: "Approve the sign-in in the Steam mobile app. The app will continue waiting for confirmation automatically.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -1004,12 +1004,12 @@ private fun SteamLoginDialog(
                 Text(
                     if (isTokenMode) {
                         if (state.mode == SteamLoginDialogMode.Reauthenticate) {
-                            "改用PasswordRe-authenticate"
+                            "Re-authenticate with Password"
                         } else {
-                            "改用账号Password登录"
+                            "改用账号PasswordSign In"
                         }
                     } else {
-                        "改为输入Sign in with Token"
+                        "Switch to Token Sign-In"
                     },
                 )
             }
@@ -1022,7 +1022,7 @@ private fun SteamLoginDialog(
             )
         }
         Text(
-            text = "登录过程摘要会写入运行Logs，可在设置页Logs区域Export Log Bundle。",
+            text = "Sign In过程摘要会写入运行Logs，可在设置页Logs区域Export Log Bundle。",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -1031,19 +1031,19 @@ private fun SteamLoginDialog(
 
 private fun sourceDescription(source: UpdateSource): String =
     when (source) {
-        UpdateSource.GH_PROXY_COM -> "默认优先源，适合下载 GitHub 附件。"
-        UpdateSource.GH_PROXY_VIP -> "支持元数据和下载代理，适合作为备用源。"
-        UpdateSource.GH_LLKK -> "支持元数据和下载代理，可作为另一条回退线路。"
-        UpdateSource.GH_PROXY_NET -> "自动回退源，不在设置里手动选择。"
-        UpdateSource.OFFICIAL -> "官方 GitHub 直连地址。"
+        UpdateSource.GH_PROXY_COM -> "Default preferred source for downloading GitHub assets."
+        UpdateSource.GH_PROXY_VIP -> "Supports metadata and download proxying; suitable as a backup source."
+        UpdateSource.GH_LLKK -> "Supports metadata and download proxying as an alternative fallback."
+        UpdateSource.GH_PROXY_NET -> "Automatic fallback source; it cannot be selected manually."
+        UpdateSource.OFFICIAL -> "Official direct GitHub URL."
     }
 
 private fun steamLanguagePreferenceDescription(
     preference: SteamLanguagePreference,
 ): String =
     when (preference) {
-        SteamLanguagePreference.SimplifiedChinese -> "添加游戏和工坊浏览会优先按中文界面与中文偏好请求。"
-        SteamLanguagePreference.English -> "添加游戏和工坊浏览会优先按英文界面与英文偏好请求。"
+        SteamLanguagePreference.SimplifiedChinese -> "Game searches and Workshop browsing will prefer Chinese language results."
+        SteamLanguagePreference.English -> "Game searches and Workshop browsing will prefer English language results."
     }
 
 private const val repositoryUrl = "https://github.com/Apricityx/WorkshopAndroidDownloader"
