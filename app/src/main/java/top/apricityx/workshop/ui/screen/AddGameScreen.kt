@@ -123,7 +123,7 @@ fun AddGameScreen(
         if (state.searchResults.isNotEmpty()) {
             item {
                 SectionHeading(
-                    title = "Search结果",
+                    title = "Search Results",
                     subtitle = "Add a result to your library or open its Workshop page right away.",
                 )
             }
@@ -154,12 +154,12 @@ fun AddGameScreen(
 
         if (state.isLoadingFeatured) {
             item {
-                WorkshopLoadingBlock(label = "正在加载Popular Workshop Games。")
+                WorkshopLoadingBlock(label = "Loading popular Workshop games…")
             }
         } else if (state.featuredGames.isEmpty() && !state.featuredErrorMessage.isNullOrBlank()) {
             item {
                 WorkshopCenteredState(
-                    title = "加载failed",
+                    title = "Failed to Load",
                     message = state.featuredErrorMessage,
                     actionLabel = "Retry",
                     onAction = onRetryFeaturedLoad,
@@ -169,7 +169,7 @@ fun AddGameScreen(
             item {
                 WorkshopCenteredState(
                     title = "No Popular Games Available",
-                    message = "稍后Retry，或者直接使用Search / GameID Add。",
+                    message = "Try again later, or add a game using Search or its GameID.",
                 )
             }
         } else {
