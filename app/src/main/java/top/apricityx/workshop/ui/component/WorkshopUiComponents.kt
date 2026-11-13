@@ -451,10 +451,23 @@ private fun resolveMetricPillPresentation(
     }
 
     MetricExactIconRules[normalized]?.let { resolvedIcon ->
+        val englishStatus = when (normalized) {
+            "等待中" -> "Waiting"
+            "排队中" -> "Queued"
+            "解析元数据" -> "Resolving Metadata"
+            "连接内容服务器" -> "Connecting to Content Server"
+            "下载中" -> "Downloading"
+            "已暂停" -> "Paused"
+            "已完成" -> "Completed"
+            "失败" -> "Failed"
+            "已下载" -> "Downloaded"
+            "时间未知" -> "Time Unknown"
+            else -> normalized
+        }
         return MetricPillPresentation(
-            displayText = normalized,
+            displayText = englishStatus,
             icon = resolvedIcon,
-            contentDescription = normalized,
+            contentDescription = englishStatus,
         )
     }
 
