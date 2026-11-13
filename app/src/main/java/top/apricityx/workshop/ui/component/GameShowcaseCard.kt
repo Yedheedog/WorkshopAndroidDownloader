@@ -45,7 +45,7 @@ fun GameShowcaseCard(
             )
             MetricFlow(metrics = listOf("AppID ${game.appId}"))
             Text(
-                text = game.shortDescription.ifBlank { "这个游戏支持 Steam 创意工坊。" },
+                text = game.shortDescription.ifBlank { "This game supports Steam Workshop." },
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodyMedium,
