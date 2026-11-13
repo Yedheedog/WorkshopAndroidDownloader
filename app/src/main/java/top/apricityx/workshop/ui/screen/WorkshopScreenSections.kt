@@ -286,7 +286,7 @@ private fun WorkshopDialogs(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Text(
-                        text = "Direct Download将从 GitHub Release 进行下载，不一定会有稳定的速度。如果想要支持开发，可以使用Quark Download。开发者会从每一次转存获得收益😋",
+                        text = "Direct downloads use GitHub Releases and may not offer consistent speeds. To support development, you can use Quark downloads. The developer receives a small benefit from each transfer 😋",
                         style = MaterialTheme.typography.bodySmall,
                     )
                     Text(
@@ -371,7 +371,7 @@ private fun WorkshopDialogs(
         val trimmedRenameTitle = state.renameModTitleInput.trim()
         WorkshopDialog(
             onDismissRequest = actions.onDismissRenameMod,
-            title = { Text("重命名模组") },
+            title = { Text("Rename Mod") },
             buttons = {
                 WorkshopOutlinedButton(onClick = actions.onDismissRenameMod) {
                     Text("Cancel")
@@ -410,7 +410,7 @@ private fun WorkshopDialogs(
                 }
             },
         ) {
-            Text("Confirm要移除「${pendingRemoveGame.name}」吗？")
+            Text("Are you sure you want to remove “${pendingRemoveGame.name}”?")
         }
     }
 
@@ -437,9 +437,9 @@ private fun WorkshopDialogs(
         ) {
             Text(
                 if (pendingRemoveMod.isTrackingOnly) {
-                    "Confirm要Remove from Mod Library「${pendingRemoveMod.itemTitle}」吗？移除后将不再继续为它检查更新。"
+                    "Remove “${pendingRemoveMod.itemTitle}” from the Mod Library? Update checks will stop for this item."
                 } else {
-                    "Confirm要删除「${pendingRemoveMod.itemTitle}」的 ${pendingRemoveMod.versionLabel()} 本地文件吗？下载历史会保留。"
+                    "Delete local files for “${pendingRemoveMod.itemTitle}” (${pendingRemoveMod.versionLabel()})? Download history will be kept."
                 },
             )
         }
