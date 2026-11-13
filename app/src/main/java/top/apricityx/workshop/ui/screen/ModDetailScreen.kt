@@ -178,7 +178,7 @@ fun ModDetailScreen(
                             if (descriptionTranslationState.translatedDescription == null) {
                                 "Translate Description"
                             } else {
-                                "重新Translate Description"
+                                "Translate Description Again"
                             },
                         )
                     }
