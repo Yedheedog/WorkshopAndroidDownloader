@@ -84,9 +84,9 @@ fun ModDetailScreen(
             subtitle = group.gameTitle,
             metrics = listOf(
                 "AppID ${group.appId}",
-                "模组 ${group.publishedFileId}",
-                "版本 ${group.versionCount()}",
-                "文件 ${group.totalFileCount()}",
+                "Mod ${group.publishedFileId}",
+                "${group.versionCount()} Versions",
+                "${group.totalFileCount()} Files",
             ),
         ) {
             ModPreviewImage(
@@ -95,7 +95,7 @@ fun ModDetailScreen(
             )
             latestVersion?.primaryFile()?.let { primaryFile ->
                 Text(
-                    text = "最新主文件：${primaryFile.relativePath}",
+                    text = "Latest Main File: ${primaryFile.relativePath}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary,
                 )
@@ -105,17 +105,17 @@ fun ModDetailScreen(
                 onClick = onRenameMod,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("重命名模组")
+                Text("Rename Mod")
             }
             if (group.versionCount() > 1) {
                 Text(
-                    text = "该模组共保存了 ${group.versionCount()} 个版本，下面可以分别查看、更新或删除。",
+                    text = "${group.versionCount()} versions of this mod are saved. You can view, update, or delete each version below.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else if (group.versionCount() == 0) {
                 Text(
-                    text = "这个模组当前只加入了模组库，尚未保存任何版本。你仍然可以继续检查更新，或直接下载最新版本。",
+                    text = "This mod is in your library, but no versions have been saved yet. You can still check for updates or download the latest version.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -126,7 +126,7 @@ fun ModDetailScreen(
                     ) {
                         CompositionLocalProvider(LocalContentColor provides Color.Black) {
                             Text(
-                                text = "下载最新版本",
+                                text = "Download Latest Version",
                                 color = Color.Black,
                             )
                         }
@@ -135,7 +135,7 @@ fun ModDetailScreen(
                         onClick = { onRemoveMod(entry) },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text("删除该模组")
+                        Text("Delete Mod")
                     }
                 }
             }
@@ -144,13 +144,13 @@ fun ModDetailScreen(
         if (group.description.isNotBlank() || group.changeNotesFetched || group.changeNotes.isNotBlank()) {
             WorkshopPanelCard {
                 Text(
-                    text = "简介",
+                    text = "Description",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
                 )
                 if (descriptionTranslationState.translatedDescription != null) {
                     Text(
-                        text = "原文",
+                        text = "Original",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.primary,
                     )
@@ -172,13 +172,13 @@ fun ModDetailScreen(
                             modifier = Modifier.size(18.dp),
                             strokeWidth = 2.dp,
                         )
-                        Text(" 正在翻译简介…")
+                        Text(" 正在翻译Description…")
                     } else {
                         Text(
                             if (descriptionTranslationState.translatedDescription == null) {
-                                "翻译简介"
+                                "翻译Description"
                             } else {
-                                "重新翻译简介"
+                                "重新翻译Description"
                             },
                         )
                     }
@@ -187,7 +187,7 @@ fun ModDetailScreen(
                     onClick = { onViewChangeNotes(group) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("查看更新日志")
+                    Text("View Changelog")
                 }
                 descriptionTranslationState.translationErrorMessage?.let { translationErrorMessage ->
                     WorkshopMessageBanner(
@@ -197,7 +197,7 @@ fun ModDetailScreen(
                 }
                 descriptionTranslationState.translatedDescription?.takeIf(String::isNotBlank)?.let { translatedDescription ->
                     Text(
-                        text = "译文",
+                        text = "Translation",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.primary,
                     )
@@ -258,13 +258,13 @@ private fun ModVersionPanel(
         )
         MetricFlow(
             metrics = listOf(
-                "文件 ${entry.files.size}",
-                "同步 ${formatModLibraryTimestamp(entry.storedAtMillis)}",
+                "${entry.files.size} Files",
+                "Synced ${formatModLibraryTimestamp(entry.storedAtMillis)}",
             ),
         )
         entry.primaryFile()?.let { primaryFile ->
             Text(
-                text = "主文件：${primaryFile.relativePath}",
+                text = "Main File: ${primaryFile.relativePath}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 2,
@@ -279,7 +279,7 @@ private fun ModVersionPanel(
             ) {
                 CompositionLocalProvider(LocalContentColor provides Color.Black) {
                     Text(
-                        text = "更新到最新版本",
+                        text = "Update to Latest Version",
                         color = Color.Black,
                     )
                 }
@@ -291,13 +291,13 @@ private fun ModVersionPanel(
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             if (orderedFiles.isEmpty()) {
                 Text(
-                    text = "暂无可操作文件。",
+                    text = "No files available for this action.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
                 if (pagedFiles.size > 1) {
                     Text(
-                        text = "文件第 ${currentPageIndex + 1} / ${pagedFiles.size} 页，每页 ${MOD_DETAIL_FILES_PER_PAGE} 个文件。",
+                        text = "Files page ${currentPageIndex + 1} of ${pagedFiles.size}, ${MOD_DETAIL_FILES_PER_PAGE} files per page.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -321,7 +321,7 @@ private fun ModVersionPanel(
                             enabled = currentPageIndex > 0,
                             modifier = Modifier.weight(1f),
                         ) {
-                            Text("上一页")
+                            Text("Previous")
                         }
                         WorkshopOutlinedButton(
                             onClick = {
@@ -331,7 +331,7 @@ private fun ModVersionPanel(
                             enabled = currentPageIndex < pagedFiles.lastIndex,
                             modifier = Modifier.weight(1f),
                         ) {
-                            Text("下一页")
+                            Text("Next")
                         }
                     }
                 }
@@ -342,7 +342,7 @@ private fun ModVersionPanel(
             onClick = onRemoveMod,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("删除这个版本")
+            Text("Delete This Version")
         }
     }
 }
@@ -384,13 +384,13 @@ private fun FileRow(
                 onClick = onOpenFile,
                 modifier = Modifier.weight(1f),
             ) {
-                Text("打开")
+                Text("Open")
             }
             WorkshopOutlinedButton(
                 onClick = onShareFile,
                 modifier = Modifier.weight(1f),
             ) {
-                Text("分享")
+                Text("Share")
             }
         }
     }
