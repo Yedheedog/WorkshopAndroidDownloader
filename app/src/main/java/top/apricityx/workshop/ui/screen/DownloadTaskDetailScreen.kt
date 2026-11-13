@@ -62,7 +62,7 @@ fun DownloadTaskDetailScreen(
         ScreenSummaryCard(
             title = task.itemTitle,
             subtitle = task.gameTitle,
-            metrics = listOf(task.statusLabel(), "阶段 ${task.phaseLabel()}", "账号 ${task.boundAccountName}"),
+            metrics = listOf(task.statusLabel(), "Stage ${task.phaseLabel()}", "Account ${task.boundAccountName}"),
         ) {
             Text(
                 text = task.summaryText(),
@@ -97,7 +97,7 @@ fun DownloadTaskDetailScreen(
                             imageVector = Icons.Default.Pause,
                             contentDescription = null,
                         )
-                        Text(" 暂停")
+                        Text(" Pause")
                     }
                 }
                 if (task.canResume()) {
@@ -121,7 +121,7 @@ fun DownloadTaskDetailScreen(
             )
         }
 
-        SectionCard(title = "下载进度") {
+        SectionCard(title = "Download Progress") {
             task.progressDetails().forEach { line ->
                 Text(
                     text = line,
@@ -130,38 +130,38 @@ fun DownloadTaskDetailScreen(
                 )
             }
             if (task.progressDetails().isEmpty()) {
-                Text("当前还没有可展示的详细进度。", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("No detailed progress is available yet.", color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
 
         if (task.status == DownloadCenterTaskStatus.Success) {
-            SectionCard(title = "文件管理") {
+            SectionCard(title = "File Management") {
                 Text(
                     text = if (task.files.isEmpty()) {
-                        "任务已经完成，导出结果会同步到模组库统一管理。"
+                        "The task is complete. Exported files are available in the Mod Library."
                     } else {
-                        "任务已经导出 ${task.files.size} 个文件。打开、分享或删除请前往模组库。"
+                        "The task exported ${task.files.size} file(s). Open, share, or delete them from the Mod Library."
                     },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
 
-        SectionCard(title = "日志") {
+        SectionCard(title = "Logs") {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
-                    text = "系统层面上的诊断日志。",
+                    text = "系统层面上的诊断Logs。",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 WorkshopOutlinedButton(onClick = onShareDebugLog) {
-                    Text("分享调试日志")
+                    Text("分享调试Logs")
                 }
                 WorkshopOutlinedButton(onClick = onShareRuntimeLog) {
-                    Text("分享运行日志")
+                    Text("分享运行Logs")
                 }
                 if (task.logs.isEmpty()) {
-                    Text("暂无日志。", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("暂无Logs。", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 } else {
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         task.logs.forEach { line ->
@@ -228,7 +228,7 @@ private fun DownloadTaskFailureCard(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                text = "下载失败",
+                text = "Download Failed",
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = contentColor,
