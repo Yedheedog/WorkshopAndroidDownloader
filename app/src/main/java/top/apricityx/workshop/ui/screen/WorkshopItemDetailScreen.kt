@@ -553,7 +553,7 @@ private fun CommentLine(
                 MetricPill(
                     text = comment.postedEpochSeconds
                         ?.let(::formatUpdatedTime)
-                        ?: comment.postedDisplayText.ifBlank { "时间Unknown" },
+                        ?: comment.postedDisplayText.ifBlank { "Time Unknown" },
                 )
             }
             SelectionContainer {
