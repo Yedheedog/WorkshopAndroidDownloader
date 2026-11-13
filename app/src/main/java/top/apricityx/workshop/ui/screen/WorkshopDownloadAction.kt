@@ -25,10 +25,10 @@ import top.apricityx.workshop.WorkshopModStatus
 
 internal fun WorkshopModStatus.actionLabel(): String =
     when (this) {
-        WorkshopModStatus.LatestDownloaded -> "查看"
-        WorkshopModStatus.UpdateAvailable -> "更新到最新版本"
-        WorkshopModStatus.NotDownloaded -> "下载"
-        WorkshopModStatus.Downloading -> "下载中"
+        WorkshopModStatus.LatestDownloaded -> "View"
+        WorkshopModStatus.UpdateAvailable -> "Update to Latest Version"
+        WorkshopModStatus.NotDownloaded -> "Download"
+        WorkshopModStatus.Downloading -> "Download中"
     }
 
 internal fun WorkshopModStatus.actionIcon(): ImageVector =
