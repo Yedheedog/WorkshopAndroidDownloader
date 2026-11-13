@@ -327,21 +327,21 @@ data class UpdateDownloadOptionState(
 
 fun AppThemeMode.displayName(): String =
     when (this) {
-        AppThemeMode.FollowSystem -> "跟随系统"
-        AppThemeMode.Light -> "亮色模式"
-        AppThemeMode.Dark -> "深色模式"
+        AppThemeMode.FollowSystem -> "Follow system"
+        AppThemeMode.Light -> "Light mode"
+        AppThemeMode.Dark -> "Dark mode"
     }
 
 fun AppFrontendMode.displayName(): String =
     when (this) {
-        AppFrontendMode.LiquidGlass -> "液态玻璃"
-        AppFrontendMode.LiteLiquidGlass -> "轻量液态"
-        AppFrontendMode.Legacy -> "旧版经典"
+        AppFrontendMode.LiquidGlass -> "Liquid Glass"
+        AppFrontendMode.LiteLiquidGlass -> "Lite Liquid Glass"
+        AppFrontendMode.Legacy -> "Classic"
     }
 
 fun SteamLanguagePreference.displayName(): String =
     when (this) {
-        SteamLanguagePreference.SimplifiedChinese -> "简体中文"
+        SteamLanguagePreference.SimplifiedChinese -> "Simplified Chinese"
         SteamLanguagePreference.English -> "English"
     }
 
@@ -354,35 +354,35 @@ fun SteamLanguagePreference.toSteamPublishedFileLanguage(): Int =
 fun ModLibraryDisplayMode.screenSubtitle(): String =
     when (this) {
         ModLibraryDisplayMode.LargePreview ->
-            "当前为大图显示，这里展示已经导出到本地的模组文件，会在启动和下载完成后自动同步。"
+            "Large preview mode. Locally exported mod files appear here and sync automatically on startup and after downloads."
         ModLibraryDisplayMode.CompactList ->
-            "当前为精简列表显示，这里展示已经导出到本地的模组文件，会在启动和下载完成后自动同步。"
+            "Compact list mode. Locally exported mod files appear here and sync automatically on startup and after downloads."
         ModLibraryDisplayMode.Overview ->
-            "当前为总览模式，这里会优先展示模组预览图，方便快速浏览本地模组。"
+            "Overview mode. Mod preview images are shown first for quick browsing of your local mods."
     }
 
 fun ModLibraryDisplayMode.sectionSubtitle(): String =
     when (this) {
         ModLibraryDisplayMode.LargePreview ->
-            "列表操作默认作用于主文件，进入详情后可以逐个文件处理。"
+            "List actions apply to the primary file by default. Open details to manage individual files."
         ModLibraryDisplayMode.CompactList ->
-            "点击条目进入详情后，可以打开、分享或删除文件。"
+            "Open an item to view details, then open, share, or delete its files."
         ModLibraryDisplayMode.Overview ->
-            "点击缩略图进入详情，长按可打开操作菜单。"
+            "Tap a thumbnail for details, or long-press to open the actions menu."
     }
 
 fun ModLibraryDisplayMode.toggleContentDescription(): String =
     when (next()) {
-        ModLibraryDisplayMode.LargePreview -> "切换为大图显示"
-        ModLibraryDisplayMode.CompactList -> "切换为精简列表"
-        ModLibraryDisplayMode.Overview -> "切换为总览模式"
+        ModLibraryDisplayMode.LargePreview -> "Switch to large preview"
+        ModLibraryDisplayMode.CompactList -> "Switch to compact list"
+        ModLibraryDisplayMode.Overview -> "Switch to overview"
     }
 
 fun ModLibrarySortOption.displayName(): String =
     when (this) {
-        ModLibrarySortOption.LatestSynced -> "最近同步"
-        ModLibrarySortOption.ModTitle -> "模组名称"
-        ModLibrarySortOption.GameTitle -> "游戏名称"
+        ModLibrarySortOption.LatestSynced -> "Recently synced"
+        ModLibrarySortOption.ModTitle -> "Mod name"
+        ModLibrarySortOption.GameTitle -> "Game name"
     }
 
 fun ModLibraryFilterState.hasActiveFilters(): Boolean =
