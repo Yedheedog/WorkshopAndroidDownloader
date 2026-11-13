@@ -109,14 +109,14 @@ fun AddGameScreen(
             item {
                 WorkshopMessageBanner(
                     message = message,
-                    tone = if (message.contains("failed") || message.contains("timed out")) MessageTone.Error else MessageTone.Info,
+                    tone = if (message.contains("失败") || message.contains("超时") || message.contains("failed", ignoreCase = true) || message.contains("timed out", ignoreCase = true)) MessageTone.Error else MessageTone.Info,
                 )
             }
         }
 
         if (state.isSearching) {
             item {
-                WorkshopLoadingBlock(label = "正在Search支持创意工坊的游戏。")
+                WorkshopLoadingBlock(label = "Searching for Workshop-enabled games…")
             }
         }
 
