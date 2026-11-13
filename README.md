@@ -1,161 +1,139 @@
 <p align="center">
-  <img src="./app/src/main/res/mipmap-nodpi/ic_launcher.png" alt="WorkshopOnAndroid 图标" width="96" height="96" />
+  <img src="./app/src/main/res/mipmap-nodpi/ic_launcher.png" alt="WorkshopOnAndroid app icon" width="96" height="96" />
 </p>
 
 <h1 align="center">WorkshopOnAndroid</h1>
 
 <p align="center">
-  一个面向 Android 的 Steam 创意工坊模组下载器项目
+  An Android app for browsing and downloading Steam Workshop content.
 </p>
 
 <p align="center">
-  支持浏览支持创意工坊的游戏、查看模组详情；公开条目可匿名下载，支持登录 Steam 账号。
-</p>
-
-<p align="center">
-  <a href="#quick-start">
-    <img alt="Quick Start" src="https://img.shields.io/badge/Build-Quick%20Start-6f42c1?style=for-the-badge&logo=gradle&logoColor=white" />
-  </a>
-  <a href="#automation">
-    <img alt="ADB Automation" src="https://img.shields.io/badge/ADB-Debug%20Automation-0969da?style=for-the-badge&logo=androidstudio&logoColor=white" />
-  </a>
+  Browse games that support Steam Workshop, inspect item details, and download public items anonymously or use a signed-in Steam account for content that requires authentication.
 </p>
 
 <p align="center">
   <img alt="Android API 31+" src="https://img.shields.io/badge/Android-API%2031%2B-34A853?style=flat-square&logo=android&logoColor=white" />
-  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-Android-7f52ff?style=flat-square&logo=kotlin&logoColor=white" />
-  <img alt="Jetpack Compose" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white" />
-  <img alt="Steam Workshop Login Aware" src="https://img.shields.io/badge/Steam%20Workshop-Login%20Aware-1b2838?style=flat-square&logo=steam&logoColor=white" />
-  <img alt="Authenticated Steam CM" src="https://img.shields.io/badge/Protocol-Authenticated%20Steam%20CM-0a7ea4?style=flat-square" />
+  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-Android-7f52ff?style=flat-square&logo=kotlin" />
+  <img alt="Jetpack Compose" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?style=flat-square&logo=jetpackcompose" />
+  <img alt="Steam Workshop" src="https://img.shields.io/badge/Steam%20Workshop-Login%20Aware-1b2838?style=flat-square&logo=steam" />
 </p>
 
 <p align="center">
-  <a href="#highlights">核心特性</a> •
-  <a href="#quick-start">快速开始</a> •
-  <a href="#build-from-source">构建说明</a> •
-  <a href="#release-automation">发布自动化</a> •
-  <a href="#automation">自动化调试</a> •
-  <a href="#repository-layout">仓库结构</a> •
-  <a href="#limitations">当前限制</a> •
-  <a href="#license">许可证</a>
+  <a href="#highlights">Highlights</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#building-from-source">Build</a> •
+  <a href="#release-automation">Release Automation</a> •
+  <a href="#adb-debug-automation">ADB Automation</a> •
+  <a href="#repository-layout">Repository Layout</a> •
+  <a href="#limitations">Limitations</a> •
+  <a href="#license">License</a>
 </p>
 
 > [!IMPORTANT]
-> 支持在设置页通过 Steam 协议登录账号，并把同一套账号同时用于工坊浏览和下载。公开条目仍可匿名下载；需要登录态的条目会在任务入队时冻结绑定当前账号，并在下载时携带对应的 Steam Cookie / CM 会话。当前仍不支持 `Collection` 下载和二维码登录。
+> You can sign in to Steam from Settings using the Steam protocol. The same account is used for Workshop browsing and downloads. Public items can still be downloaded without signing in. Tasks that require authentication are bound to the account selected when they are queued, and use that account's Steam cookies / CM session during download. Collection downloads and QR-code login are not currently supported.
 
-<a id="highlights"></a>
+## Highlights
 
-## 核心特性
-
-| 方向    | 说明                                                                    |
-|-------|-----------------------------------------------------------------------|
-| 游戏发现  | 支持预置热门工坊游戏、搜索 Steam 游戏、或直接输入 `AppID` 加入本地游戏库。                         |
-| 工坊浏览  | 基于 Steam Community 页面抓取创意工坊列表，支持搜索、分页和模组详情查看。                         |
-| 调试自动化 | 提供基于 `adb` 的 Gradle 任务，可跳过 UI 直接触发下载并拉回日志。                            |
+| Area | Description |
+| --- | --- |
+| Game discovery | Choose from featured Workshop games, search Steam games, or add a game by entering its `AppID`. |
+| Workshop browsing | Browse Steam Community Workshop listings, search, paginate, and view item details. |
+| Debug automation | Run Gradle tasks backed by `adb` to trigger downloads without navigating the UI and collect diagnostic logs. |
 
 > [!NOTE]
-> `:steam-protocol` 负责 Steam CM 连接、账号认证、内容服务器发现和 CDN 授权，`:workshop-core` 负责 manifest、chunk、校验、解压和最终文件组装。
+> `:steam-protocol` handles Steam CM connections, account authentication, content-server discovery, and CDN authorization. `:workshop-core` handles manifests, chunks, verification, extraction, and final file assembly.
 
-<a id="quick-start"></a>
+## Quick Start
 
-## 快速开始
+### Requirements
 
-### 1. 准备环境
+- JDK 17 or newer (the project currently builds with JDK 21)
+- Android Studio and Android SDK
+- Android 12 (API 31) or newer
+- Network access to Steam Store, Steam Community, and Steam Web API
+- For device automation: working `adb` and a connected Android device
 
-- JDK 17+，当前项目使用 JDK 21 构建
-- Android Studio / Android SDK
-- Android 12+ 设备
-- 能访问 Steam Store、Steam Community 和 Steam Web API 的网络环境
-- 如需自动化调试，请确保 `adb` 可用且设备已连接
-
-### 2. 构建 Debug APK
+### Build a Debug APK
 
 ```powershell
 .\gradlew.bat :app:assembleDebug
 ```
 
-### 3. 安装到设备
+### Install on a device
 
 ```powershell
 .\gradlew.bat :app:installDebug
 ```
 
-### 4. 应用内使用
+### Use the app
 
-1. 启动应用后进入游戏库页面。
-2. 点击右上角 `+`，打开添加游戏页。
-3. 通过热门游戏、关键字搜索或直接输入 `AppID` 把支持创意工坊的游戏加入库。
-4. 进入游戏对应的创意工坊页，搜索并查看模组详情。
-5. 点击模组卡片上的 `下载`，将任务加入下载中心。
-6. 在下载中心查看状态、进度和日志，或执行暂停、继续、删除操作；已下载文件统一在模组库里管理。
+1. Open the app and go to the game library.
+2. Tap the `+` button in the top-right corner to open Add Game.
+3. Add a Workshop-enabled game from featured games, search results, or by entering its `AppID`.
+4. Open that game's Workshop page, search for items, and inspect their details.
+5. Tap **Download** on an item card to add it to the Download Center.
+6. Track task status, progress, and logs in the Download Center. Pause, resume, or remove tasks there; manage completed files in the Mod Library.
 
-### 5. 下载结果位置
+### Download locations
 
-- 应用私有缓存目录：`/data/user/0/top.apricityx.workshop/files/workshop/<AppID>/<PublishedFileId>/`
-- 用户可访问导出目录：`/sdcard/Download/workshop/<游戏名字>/<模组名字>/<版本>/`
+- Private app cache: `/data/user/0/top.apricityx.workshop/files/workshop/<AppID>/<PublishedFileId>/`
+- User-accessible export directory: `/sdcard/Download/workshop/<Game Name>/<Item Name>/<Version>/`
 
-如果模组是单文件，并且 Steam 元数据里带有更可读的标题或文件名，导出阶段会优先使用它们生成文件名。相同版本会覆盖同版本目录，不同版本会在各自版本目录下共存。
+For single-file items, readable titles or filenames from Steam metadata are preferred when naming exported files. Re-downloading the same version replaces that version's directory; different versions are kept in their own directories.
 
-<a id="build-from-source"></a>
+## Building from Source
 
-## 构建说明
+| Module | Responsibility |
+| --- | --- |
+| `:app` | Compose UI, navigation, game library, local settings, Download Center, and file export |
+| `:workshop-core` | Workshop metadata parsing, `file_url` downloads, UGC manifest/chunk downloads, verification, and file assembly |
+| `:steam-protocol` | Steam CM WebSocket connections, account authentication, directory services, content-server requests, manifest request codes, CDN tokens, and depot-key retrieval |
 
-| 模块                | 职责                                                                                     |
-|-------------------|----------------------------------------------------------------------------------------|
-| `:app`            | Compose UI、页面流转、游戏库、本地设置、下载中心和文件导出                                                     |
-| `:workshop-core`  | 创意工坊元数据解析、`file_url` 下载、UGC manifest/chunk 下载、校验和文件组装                                  |
-| `:steam-protocol` | Steam CM WebSocket 连接、账号认证、目录服务、内容服务器请求、manifest request code、CDN token 和 depot key 获取 |
-
-构建目标：
+Build targets:
 
 - `minSdk 31`
 - `targetSdk 36`
 - `compileSdk 36`
-- Java / Kotlin 字节码目标：`17`
+- Java / Kotlin bytecode target: `17`
 
-运行时设置：
+Runtime settings:
 
-- 下载线程数可在应用设置页调整，范围 `1..8`
-- 同时下载任务数可在应用设置页调整，范围 `1..3`
-- 主题模式支持跟随系统、浅色和深色
-- 可在应用设置页保存多个 Steam 账号，切换当前浏览账号，并把下载任务绑定到入队时的账号；下载时会按绑定账号携带 Steam 登录态
+- Download worker count: `1..8`
+- Maximum concurrent download tasks: `1..3`
+- Theme: follow system, light, or dark
+- Multiple Steam accounts can be saved in Settings. You can switch the active browsing account; each download task remains bound to the account selected when it was queued.
 
-<a id="release-automation"></a>
+## Release Automation
 
-## 发布自动化
+The repository includes a tag-based release workflow:
 
-仓库已补充与参考项目一致的标签发布策略：
+- `.github/workflows/release.yml` builds a signed release APK when a `v*` tag is pushed.
+- Build artifacts are uploaded to GitHub Actions.
+- When the ref is a tag, the workflow creates or updates a GitHub Release.
+- If `docs/release/note/v<version>.md` exists, it is used as the Release description.
 
-- `.github/workflows/release.yml` 会在推送 `v*` 标签时构建签名版 `release APK`
-- 构建产物会先上传到 Actions artifact
-- 如果当前引用是标签，工作流会同步创建或更新 GitHub Release
-- 若存在 `docs/release/note/v<version>.md`，该文件会被用作 Release 正文
+Signing credentials are supplied through the GitHub Environment `release-signing`. See [docs/release-automation/README.md](docs/release-automation/README.md) for setup instructions.
 
-签名信息通过 GitHub Environment `release-signing` 注入，详细配置步骤见：
-
-- `docs/release-automation/README.md`
-
-本地准备 release note、打 tag 并推送，建议直接运行：
+To prepare a release note, create a tag, and push it, run:
 
 ```powershell
 scripts\prepare-release.bat
 ```
 
-<a id="automation"></a>
+## ADB Debug Automation
 
-## 自动化调试
+The repository includes `adb` automation tasks for device debugging and regression checks. They can test a download using an `AppID + PublishedFileId` without navigating the UI.
 
-仓库内置了面向真机调试和回归验证的 `adb` 自动化任务，适合跳过 UI 直接验证某个 `AppID + PublishedFileId` 的下载链路。
+`workshopDownloadAndPullLogs` automatically:
 
-`workshopDownloadAndPullLogs` 会自动完成：
+- Builds and installs the latest Debug APK.
+- Force-stops the app and clears the target item's previous cache.
+- Sends `top.apricityx.workshop.action.DOWNLOAD` through `adb`.
+- Waits for success, failure, or timeout.
+- Retrieves `download.log`, `logcat.txt`, `metadata.json`, and `result.txt`.
 
-- 构建并安装最新 Debug APK
-- 强制停止应用并清理目标条目的旧缓存
-- 通过 `adb` 发送 `top.apricityx.workshop.action.DOWNLOAD`
-- 等待下载成功、失败或超时
-- 拉回 `download.log`、`logcat.txt`、`metadata.json` 和 `result.txt`
-
-常用命令：
+Common commands:
 
 ```powershell
 .\gradlew.bat :app:workshopStartDownload -PworkshopAppId=646570 -PpublishedFileId=3677098410 -PdeviceSerial=<adb-serial>
@@ -163,46 +141,40 @@ scripts\prepare-release.bat
 .\gradlew.bat :app:workshopDownloadAndPullLogs -PworkshopAppId=646570 -PpublishedFileId=3677098410 -PdeviceSerial=<adb-serial> -PdownloadTimeoutSeconds=180 --console=plain
 ```
 
-可选参数：
+Optional parameters:
 
 - `-PdeviceSerial=<adb-serial>`
 - `-PdownloadTimeoutSeconds=<seconds>`
 - `-PpollIntervalMillis=<milliseconds>`
 - `-PlogsDir=<path>`
 
-默认日志导出目录：
+Default log output directory:
 
 `build/workshop-adb/app-<AppID>-file-<PublishedFileId>-<timestamp>/`
 
-<a id="repository-layout"></a>
+## Repository Layout
 
-## 仓库结构
+| Path | Purpose |
+| --- | --- |
+| `app/` | Android application, Compose screens, Download Center, and public-directory export |
+| `workshop-core/` | Download engine, metadata parsing, chunk processing, verification, and assembly |
+| `steam-protocol/` | Steam protocol access, WebSocket sessions, and content-server client |
+| `gradle/workshop-adb.gradle.kts` | ADB debugging automation tasks |
 
-| 路径                               | 用途                                 |
-|----------------------------------|------------------------------------|
-| `app/`                           | Android 主应用、Compose 页面、下载中心、公共目录导出 |
-| `workshop-core/`                 | 下载引擎、元数据解析、chunk 处理、校验与组装          |
-| `steam-protocol/`                | Steam 协议访问、WebSocket 会话和内容服务器客户端   |
-| `gradle/workshop-adb.gradle.kts` | `adb` 调试自动化任务                      |
+## Limitations
 
-<a id="limitations"></a>
+- Public items can be downloaded anonymously. When signed in, tasks use the Steam account bound at queue time for authenticated metadata, Steam CM, and CDN requests. Actual access still depends on the account's visibility rights and Steam's upstream authorization.
+- Steam Workshop Collections are not currently supported.
+- Workshop listings and item details depend on Steam page structures and related APIs; upstream changes may require parser updates.
+- If the network cannot reliably reach Steam, game discovery, Workshop browsing, and downloads may fail or time out.
 
-## 当前限制
+### Built-in acceleration and connection recovery
 
-- 公开条目可匿名下载；登录后，下载任务会按入队时绑定的账号携带 Steam 登录态，请求需要认证的元数据、Steam CM 和 CDN 资源。实际能否下载仍取决于该账号对条目的可见性与 Steam 上游鉴权结果。
-- 暂不支持 `Collection`。
-- 工坊列表和详情依赖 Steam 页面结构与相关接口，若上游改版需要同步调整解析逻辑。
-- 当网络无法稳定访问 Steam 时，游戏库、工坊列表和下载流程都可能失败或超时。
+- Separate routes are used for Steam Community, Store/API, and images. A failure on one route does not disable the others. Failed routes back off briefly (30 seconds) and are retried automatically on later requests.
+- If acceleration configuration is temporarily unavailable, built-in fallback routes are used. The Community fallback stays aligned with the current Watt configuration; obsolete route caches are invalidated automatically.
+- Steam CM sessions required for downloads do not pass through the site proxy routes above. The app discovers candidate nodes from Steam, interleaves data centers, and connects concurrently with staggered starts to avoid serial delays on unreachable nodes. At least one candidate must be reachable from the current network.
+- To troubleshoot, export a log bundle from Settings and inspect CM candidate addresses, connection errors, and timings. Built-in acceleration cannot guarantee access on every network; if failures persist, try another network or an external accelerator.
 
-### 内置加速与连接恢复
+## License
 
-- 内置加速分别处理 Steam 社区、商店/API 和图片线路；某条线路失败不会关闭其他线路。失败线路短暂退避 30 秒后会在后续请求中自动重试，无需重启应用。
-- 加速配置暂时不可用时，会使用内置备用路线。社区备用路线与当前 Watt 配置保持一致，旧版路线缓存会自动失效，无需清空应用数据。
-- 下载所需的 Steam CM 会话不经过上述站点转发。应用从 Steam 动态获取候选节点，交错不同机房并错峰并发连接，避免在同一区域不可达节点上串行等待；仍需要当前网络至少能访问一个候选节点。
-- 排查时可在设置中导出日志包，查看 CM 候选地址、连接失败原因及耗时。内置加速不能保证所有网络均可使用，持续失败时仍可尝试切换网络或使用外部加速器。
-
-<a id="license"></a>
-
-## 许可证
-
-本项目基于 [Apache License 2.0](LICENSE) 开源。
+This project is licensed under the [Apache License 2.0](LICENSE).
