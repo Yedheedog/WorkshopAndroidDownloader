@@ -8,22 +8,22 @@ internal fun formatDownloadFailureMessage(
     hasBoundAccount: Boolean,
     ownershipStatus: SteamAppOwnershipStatus,
 ): String {
-    val normalizedMessage = rawMessage.trim().ifBlank { "下载失败。" }
+    val normalizedMessage = rawMessage.trim().ifBlank { "Download failed." }
     if (!normalizedMessage.contains(STEAM_CDN_UNAUTHORIZED_MESSAGE)) {
         return normalizedMessage
     }
 
     if (!hasBoundAccount) {
-        return "Steam CDN 返回 401，该内容可能需要登录购买过游戏的 Steam 账号才能下载。"
+        return "Steam CDN returned 401. This item may require signing in with a Steam account that owns the game."
     }
 
     return when (ownershipStatus) {
         SteamAppOwnershipStatus.NotOwned -> {
-            val resolvedGameTitle = gameTitle.ifBlank { "对应游戏" }
-            "Steam CDN 返回 401，当前绑定账号未检测到拥有《$resolvedGameTitle》，该内容可能需要登录购买过游戏的 Steam 账号才能下载。"
+            val resolvedGameTitle = gameTitle.ifBlank { "the corresponding game" }
+            "Steam CDN returned 401. The linked account does not appear to own “$resolvedGameTitle”. This item may require an account that owns the game."
         }
 
         SteamAppOwnershipStatus.Owned -> normalizedMessage
-        SteamAppOwnershipStatus.Unknown -> "Steam CDN 返回 401，该内容可能需要登录购买过游戏的 Steam 账号才能下载。"
+        SteamAppOwnershipStatus.Unknown -> "Steam CDN returned 401. This item may require signing in with a Steam account that owns the game."
     }
 }
