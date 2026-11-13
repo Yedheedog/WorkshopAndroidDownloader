@@ -22,7 +22,7 @@ fun DownloadDependencyWarningDialog(
 ) {
     WorkshopDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text("还有前置未下载") },
+        title = { Text("Some Dependencies Are Missing") },
         buttons = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -33,25 +33,25 @@ fun DownloadDependencyWarningDialog(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = onDownloadAllWithDependencies,
                 ) {
-                    Text("下载所有前置并下载模组")
+                    Text("Download All Dependencies and Item")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
                 ) {
                     WorkshopTextButton(onClick = onDismissRequest) {
-                        Text("取消")
+                        Text("Cancel")
                     }
                     WorkshopOutlinedButton(onClick = onDownloadOnlyCurrent) {
-                        Text("只下载模组")
+                        Text("Download Item Only")
                     }
                 }
             }
         },
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("「${item.title}」还有 ${requiredItems.size} 个前置工坊物品未下载。")
-            Text("你可以选择下载所有前置后再下载模组，或者只下载当前模组。")
+            Text("“${item.title}” has ${requiredItems.size} Workshop dependencies that have not been downloaded.")
+            Text("You can download all dependencies first, or download only this item.")
             Text(
                 text = requiredItems.joinToString(separator = "\n") { "• ${it.title}" },
             )
