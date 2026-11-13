@@ -1006,7 +1006,7 @@ private fun SteamLoginDialog(
                         if (state.mode == SteamLoginDialogMode.Reauthenticate) {
                             "Re-authenticate with Password"
                         } else {
-                            "改用账号PasswordSign In"
+                            "Sign in with Username and Password"
                         }
                     } else {
                         "Switch to Token Sign-In"
@@ -1022,7 +1022,7 @@ private fun SteamLoginDialog(
             )
         }
         Text(
-            text = "Sign In过程摘要会写入运行Logs，可在设置页Logs区域Export Log Bundle。",
+            text = "Sign-in summaries are written to runtime logs. You can export a log bundle from the Logs section in Settings.",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
