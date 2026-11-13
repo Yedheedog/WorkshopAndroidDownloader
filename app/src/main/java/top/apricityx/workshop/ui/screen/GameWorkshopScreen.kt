@@ -202,7 +202,7 @@ fun GameWorkshopScreen(
                 WorkshopCenteredState(
                     title = "Request Timed Out",
                     message = state.message
-                        ?: "Request Timed Out，您的网络环境可能不支持直连创意工坊，请开启加速器加速 steam 或科学上网后Retry。",
+                        ?: "The request timed out. Your network may not support direct access to Steam Workshop. Try a VPN or network accelerator, then retry.",
                     actionLabel = "Retry",
                     onAction = if (state.retryLoadMoreOnError) onLoadMore else onSearch,
                 )
@@ -341,7 +341,7 @@ private fun DirectPublishedIdDownloadDialog(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     DownloadingAnimatedIcon()
-                    Text("这 items已经在下载中。")
+                    Text("This item is already downloading.")
                 }
             }
             else -> {
@@ -355,7 +355,7 @@ private fun DirectPublishedIdDownloadDialog(
                     )
                     Text(
                         when (modStatus) {
-                            WorkshopModStatus.LatestDownloaded -> "这 items的最新版已经在本地。"
+                            WorkshopModStatus.LatestDownloaded -> "The latest version of this item is already stored locally."
                             WorkshopModStatus.UpdateAvailable -> "An older version is stored locally. You can update it to the latest version."
                             WorkshopModStatus.NotDownloaded,
                             WorkshopModStatus.Downloading,
