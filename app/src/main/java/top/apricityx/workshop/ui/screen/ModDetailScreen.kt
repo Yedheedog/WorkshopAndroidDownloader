@@ -172,13 +172,13 @@ fun ModDetailScreen(
                             modifier = Modifier.size(18.dp),
                             strokeWidth = 2.dp,
                         )
-                        Text(" 正在翻译Description…")
+                        Text(" Translating description…")
                     } else {
                         Text(
                             if (descriptionTranslationState.translatedDescription == null) {
-                                "翻译Description"
+                                "Translate Description"
                             } else {
-                                "重新翻译Description"
+                                "重新Translate Description"
                             },
                         )
                     }
