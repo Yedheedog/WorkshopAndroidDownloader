@@ -168,10 +168,10 @@ class DownloadForegroundService : Service() {
         val manager = getSystemService(NotificationManager::class.java) ?: return
         val channel = NotificationChannel(
             NOTIFICATION_CHANNEL_ID,
-            "后台下载",
+            "Background Downloads",
             NotificationManager.IMPORTANCE_LOW,
         ).apply {
-            description = "显示创意工坊下载进度并保持后台下载"
+            description = "显示创意工坊下载进度并保持Background Downloads"
             setShowBadge(false)
         }
         manager.createNotificationChannel(channel)
