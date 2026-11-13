@@ -34,16 +34,16 @@ fun DownloadCenterUiState.toForegroundNotificationSnapshot(): DownloadForeground
         }
         val remaining = foregroundTasks.size - MAX_EXPANDED_LINES
         if (remaining > 0) {
-            add("还有 $remaining 个任务等待处理")
+            add("$remaining task(s) waiting")
         }
     }
 
     return DownloadForegroundNotificationSnapshot(
         isActive = true,
         title = if (foregroundTasks.size == 1) {
-            "后台下载中"
+            "Downloading in Background"
         } else {
-            "后台下载中（${foregroundTasks.size} 个任务）"
+            "Downloading in Background（${foregroundTasks.size} 个任务）"
         },
         text = primaryTask.title,
         subText = buildForegroundCountSummary(
@@ -61,8 +61,8 @@ private fun buildForegroundCountSummary(
     queuedCount: Int,
 ): String =
     listOfNotNull(
-        runningCount.takeIf { it > 0 }?.let { "运行中 $it 个" },
-        queuedCount.takeIf { it > 0 }?.let { "排队 $it 个" },
-    ).joinToString(" · ").ifBlank { "准备开始下载" }
+        runningCount.takeIf { it > 0 }?.let { "$it running" },
+        queuedCount.takeIf { it > 0 }?.let { "$it queued" },
+    ).joinToString(" · ").ifBlank { "Preparing to download" }
 
 private const val MAX_EXPANDED_LINES = 4
