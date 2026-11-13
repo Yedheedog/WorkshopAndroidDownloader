@@ -1,0 +1,57 @@
+name: English Edition Build
+
+on:
+  push:
+    branches:
+      - english-edition
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "app/**"
+      - "workshop-core/**"
+      - "steam-protocol/**"
+      - "gradle/**"
+      - "*.gradle.kts"
+      - "gradle.properties"
+      - "gradlew"
+      - ".github/workflows/english-edition-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-debug:
+    name: Build and lint debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Run Android lint
+        run: ./gradlew :app:lintDebug --stacktrace
+
+      - name: Build debug APK
+        run: ./gradlew :app:assembleDebug --stacktrace
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: WorkshopOnAndroid-English-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
