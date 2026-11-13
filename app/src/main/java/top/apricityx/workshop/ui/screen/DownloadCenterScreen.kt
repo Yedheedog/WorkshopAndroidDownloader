@@ -71,7 +71,7 @@ fun DownloadCenterScreen(
         if (state.tasks.isEmpty()) {
             item {
                 WorkshopCenteredState(
-                    title = "Download Center还是空的",
+                    title = "Your Download Center Is Empty",
                     message = "Choose an item in the Workshop to add a task here.",
                 )
             }
