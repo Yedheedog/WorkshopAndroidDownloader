@@ -531,7 +531,7 @@ private fun ModLibrarySummaryCard(
                 }
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = if (state.filterPanelExpanded) "收起Filter and Sort" else "展开Filter and Sort",
+                    contentDescription = if (state.filterPanelExpanded) "Collapse Filters and Sorting" else "Expand Filters and Sorting",
                     modifier = Modifier.graphicsLayer {
                         rotationZ = if (state.filterPanelExpanded) 90f else 0f
                     },
@@ -545,7 +545,7 @@ private fun ModLibrarySummaryCard(
                     WorkshopOutlinedTextField(
                         value = state.filterState.searchQuery,
                         onValueChange = onSearchQueryChange,
-                        label = { Text("搜索Mods / 游戏 / ID") },
+                        label = { Text("Search mods, games, or IDs") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         modifier = Modifier.fillMaxWidth(),
@@ -925,7 +925,7 @@ private fun LargePreviewModLibraryCard(
                 )
             } else if (group.versionCount() == 0) {
                 Text(
-                    text = "当前已加入Mod Library，尚未下载任何版本。",
+                    text = "This mod is in your library, but no versions have been downloaded yet.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -1161,7 +1161,7 @@ private fun BoxScope.OverviewModLibraryContextMenu(
         )
         onOpenPrimaryFile?.let { action ->
             WorkshopPopupMenuItem(
-                text = { Text("Open Latest主文件") },
+                text = { Text("Open Latest Main File") },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.FolderOpen,
@@ -1173,7 +1173,7 @@ private fun BoxScope.OverviewModLibraryContextMenu(
         }
         onSharePrimaryFile?.let { action ->
             WorkshopPopupMenuItem(
-                text = { Text("Share Latest主文件") },
+                text = { Text("Share Latest Main File") },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Share,
@@ -1273,7 +1273,7 @@ private fun CompactListModLibraryCard(
                         overflow = TextOverflow.Ellipsis,
                     )
                     Text(
-                        text = "${group.gameTitle} · ${group.versionCount()} 个Versions · ${group.totalFileCount()} 个文件",
+                        text = "${group.gameTitle} · ${group.versionCount()} versions · ${group.totalFileCount()} files",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -1289,7 +1289,7 @@ private fun CompactListModLibraryCard(
                         )
                     } else {
                         Text(
-                            text = "当前仅加入Mod Library，尚未下载版本",
+                            text = "This mod is in your library, but no version has been downloaded yet.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,
