@@ -58,7 +58,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "top.apricityx.workshop"
+        applicationId = "top.apricityx.workshop.english"
         minSdk = 26
         targetSdk = 36
         versionCode = appVersionCode
