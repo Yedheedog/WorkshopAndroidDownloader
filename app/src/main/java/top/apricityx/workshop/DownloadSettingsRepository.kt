@@ -192,7 +192,7 @@ class DownloadSettingsRepository(context: Context) {
         const val DEFAULT_EXPERIMENTAL_WORKSHOP_DIRECT_ACCESS_ENABLED = true
         val DEFAULT_THEME_MODE: AppThemeMode = AppThemeMode.FollowSystem
         val DEFAULT_FRONTEND_MODE: AppFrontendMode = AppFrontendMode.LiquidGlass
-        val DEFAULT_STEAM_LANGUAGE_PREFERENCE: SteamLanguagePreference = SteamLanguagePreference.SimplifiedChinese
+        val DEFAULT_STEAM_LANGUAGE_PREFERENCE: SteamLanguagePreference = SteamLanguagePreference.English
         val DEFAULT_MOD_LIBRARY_DISPLAY_MODE: ModLibraryDisplayMode = ModLibraryDisplayMode.CompactList
     }
 }

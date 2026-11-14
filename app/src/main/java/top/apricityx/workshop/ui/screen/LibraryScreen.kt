@@ -38,21 +38,21 @@ fun LibraryScreen(
         )
 
         error != null && games.isEmpty() -> WorkshopCenteredState(
-            title = "游戏库加载失败",
+            title = "Failed to Load Game Library",
             message = buildString {
                 append(error.reason)
                 if (error.showAcceleratorHint) {
-                    append("\n\n啊哦，您的网络环境貌似不支持直连创意工坊，尝试开启科学上网或者开启加速器后重试。")
+                    append("\n\nYour network may not support direct access to Steam Workshop. Try a VPN or network accelerator, then retry.")
                 }
             },
-            actionLabel = "重试",
+            actionLabel = "Retry",
             onAction = onRetry,
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
         )
 
         games.isEmpty() -> WorkshopCenteredState(
-            title = "游戏库还是空的",
-            message = message ?: "点右上角 + 添加支持创意工坊的游戏。",
+            title = "Your Game Library Is Empty",
+            message = message ?: "Tap + in the top-right corner to add a Workshop-enabled game.",
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
         )
 
@@ -65,7 +65,7 @@ fun LibraryScreen(
             if (isLoading) {
                 item {
                     WorkshopMessageBanner(
-                        message = "正在刷新游戏库",
+                        message = "Refreshing game library…",
                         tone = MessageTone.Info,
                     )
                 }
@@ -82,17 +82,17 @@ fun LibraryScreen(
 
             item {
                 SectionHeading(
-                    title = "已添加的游戏",
-                    subtitle = "点击“查看工坊”进入该游戏的创意工坊列表。",
+                    title = "Your Games",
+                    subtitle = "Tap “View Workshop” to browse that game's Workshop items.",
                 )
             }
 
             items(games, key = { it.appId.toString() }) { game ->
                 GameShowcaseCard(
                     game = game,
-                    primaryActionLabel = "查看工坊",
+                    primaryActionLabel = "View Workshop",
                     onPrimaryAction = { onOpenGame(game) },
-                    secondaryActionLabel = "移出游戏库",
+                    secondaryActionLabel = "Remove from Library",
                     onSecondaryAction = { onRemoveGame(game) },
                 )
             }

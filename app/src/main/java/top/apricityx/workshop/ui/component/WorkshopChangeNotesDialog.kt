@@ -31,7 +31,7 @@ fun WorkshopChangeNotesDialog(
         title = { Text(title) },
         buttons = {
             WorkshopOutlinedButton(onClick = onDismissRequest) {
-                Text("关闭")
+                Text("Close")
             }
             onOpenExternalUrl?.let { openExternalUrl ->
                 WorkshopButton(
@@ -40,7 +40,7 @@ fun WorkshopChangeNotesDialog(
                         openExternalUrl()
                     },
                 ) {
-                    Text("在 Steam 中打开")
+                    Text("Open on Steam")
                 }
             }
         },
@@ -66,7 +66,7 @@ fun WorkshopChangeNotesDialog(
                         ) {
                             CircularProgressIndicator(modifier = Modifier.size(28.dp), strokeWidth = 2.5.dp)
                             Text(
-                                text = "正在加载更新日志…",
+                                text = "Loading changelog…",
                                 textAlign = TextAlign.Center,
                             )
                         }
@@ -75,7 +75,7 @@ fun WorkshopChangeNotesDialog(
 
                 markdown.isNotBlank() -> {
                     SimpleMarkdownCard(
-                        title = "更新日志",
+                        title = "Changelog",
                         markdown = markdown,
                     )
                 }
@@ -88,7 +88,7 @@ fun WorkshopChangeNotesDialog(
                         )
                     }
                     Text(
-                        text = "暂无更新日志。",
+                        text = "暂无Changelog。",
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                     )
@@ -98,7 +98,7 @@ fun WorkshopChangeNotesDialog(
                             onClick = onRetry,
                             modifier = Modifier.fillMaxWidth(),
                         ) {
-                            Text("重试")
+                            Text("Retry")
                         }
                     }
                     }

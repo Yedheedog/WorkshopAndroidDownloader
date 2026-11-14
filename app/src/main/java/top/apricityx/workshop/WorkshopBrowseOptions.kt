@@ -41,19 +41,19 @@ enum class WorkshopBrowseTimeWindow(
 
 fun WorkshopBrowseSortOption.displayName(): String =
     when (this) {
-        WorkshopBrowseSortOption.MostPopular -> "热门"
-        WorkshopBrowseSortOption.MostRecent -> "最新发布"
-        WorkshopBrowseSortOption.LastUpdated -> "最近更新"
-        WorkshopBrowseSortOption.MostSubscribed -> "订阅最多"
+        WorkshopBrowseSortOption.MostPopular -> "Most Popular"
+        WorkshopBrowseSortOption.MostRecent -> "Recently Published"
+        WorkshopBrowseSortOption.LastUpdated -> "Recently Updated"
+        WorkshopBrowseSortOption.MostSubscribed -> "Most Subscribed"
     }
 
 fun WorkshopBrowseTimeWindow.displayName(): String =
     when (this) {
-        WorkshopBrowseTimeWindow.Today -> "今日"
-        WorkshopBrowseTimeWindow.OneWeek -> "本周"
-        WorkshopBrowseTimeWindow.ThirtyDays -> "30天"
-        WorkshopBrowseTimeWindow.ThreeMonths -> "3个月"
-        WorkshopBrowseTimeWindow.SixMonths -> "6个月"
-        WorkshopBrowseTimeWindow.OneYear -> "1年"
-        WorkshopBrowseTimeWindow.AllTime -> "全部时间"
+        WorkshopBrowseTimeWindow.Today -> "Today"
+        WorkshopBrowseTimeWindow.OneWeek -> "This Week"
+        WorkshopBrowseTimeWindow.ThirtyDays -> "30 Days"
+        WorkshopBrowseTimeWindow.ThreeMonths -> "3 Months"
+        WorkshopBrowseTimeWindow.SixMonths -> "6 Months"
+        WorkshopBrowseTimeWindow.OneYear -> "1 Year"
+        WorkshopBrowseTimeWindow.AllTime -> "All Time"
     }

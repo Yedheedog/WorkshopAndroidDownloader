@@ -338,7 +338,7 @@ class WorkshopViewModel(
         val entries = _uiState.value.modLibraryState.items.latestVersionsForUpdateCheck()
         if (entries.isEmpty()) {
             viewModelScope.launch {
-                _toastMessages.emit("模组库还是空的，没有可检查的模组。")
+                _toastMessages.emit("Your mod library is empty. There are no mods to check.")
             }
             return
         }
@@ -614,7 +614,7 @@ class WorkshopViewModel(
             )
         }
         viewModelScope.launch {
-            _toastMessages.emit("已切换为${frontendMode.displayName()}前端。")
+            _toastMessages.emit("Switched to the ${frontendMode.displayName()} interface.")
         }
     }
 
@@ -624,7 +624,7 @@ class WorkshopViewModel(
             state.copy(
                 settingsState = state.settingsState.copy(
                     selectedSteamLanguagePreference = languagePreference,
-                    message = "已切换 Steam 语言偏好：${languagePreference.displayName()}。",
+                    message = "Steam language preference changed to ${languagePreference.displayName()}.",
                 ),
             )
         }
@@ -995,7 +995,7 @@ class WorkshopViewModel(
 
     fun switchToAnonymousSteamAccount() {
         steamAuthRepository.setActiveAccount(null)
-        syncSteamAuthState(message = "已切换为匿名浏览。")
+        syncSteamAuthState(message = "Switched to anonymous browsing.")
         primeSteamWebSessionAsync(force = true)
     }
 
@@ -1222,7 +1222,7 @@ class WorkshopViewModel(
                 val remaining = state.libraryGames.filterNot { it.appId == game.appId }
                 state.copy(
                     libraryGames = remaining,
-                    libraryMessage = if (remaining.isEmpty()) "游戏库还是空的，点右上角 + 添加支持创意工坊的游戏。" else null,
+                    libraryMessage = if (remaining.isEmpty()) "Your game library is empty. Tap + in the top-right corner to add a Workshop-enabled game." else null,
                 )
             }
         }
@@ -2357,7 +2357,7 @@ class WorkshopViewModel(
                         isLibraryLoading = false,
                         libraryError = null,
                         libraryMessage = if (games.isEmpty()) {
-                            "游戏库还是空的，点右上角 + 添加支持创意工坊的游戏。"
+                            "Your game library is empty. Tap + in the top-right corner to add a Workshop-enabled game."
                         } else {
                             null
                         },
@@ -3471,7 +3471,7 @@ class WorkshopViewModel(
                 isLoading = isLoading,
                 errorMessage = errorMessage,
                 message = if (groupedEntries.isEmpty()) {
-                    "模组库还是空的，下载一个模组后会自动同步到这里。"
+                    "Your mod library is empty. Download a mod and it will appear here automatically."
                 } else {
                     null
                 },

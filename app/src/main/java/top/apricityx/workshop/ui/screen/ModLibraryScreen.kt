@@ -171,21 +171,21 @@ fun ModLibraryScreen(
 
     when {
         state.isLoading && state.items.isEmpty() -> WorkshopLoadingBlock(
-            label = "正在同步本地模组库。",
+            label = "Syncing local mod library…",
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
         )
 
         state.errorMessage != null && state.items.isEmpty() -> WorkshopCenteredState(
-            title = "模组库同步失败",
+            title = "Failed to Sync Mod Library",
             message = state.errorMessage,
-            actionLabel = "重试",
+            actionLabel = "Retry",
             onAction = onRetry,
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
         )
 
         state.items.isEmpty() -> WorkshopCenteredState(
-            title = "模组库还是空的",
-            message = state.message ?: "下载一个模组后，会自动同步到这里。",
+            title = "Your Mod Library Is Empty",
+            message = state.message ?: "Download an item and it will appear here automatically.",
             modifier = modifier.workshopChromePadding(topExtra = 24.dp, bottomExtra = 24.dp),
         )
 
@@ -383,7 +383,7 @@ private fun LazyListScope.modLibraryHeaderItems(
 
     if (state.isLoading) {
         item {
-            WorkshopMessageBanner(message = "正在刷新本地模组库", tone = MessageTone.Info)
+            WorkshopMessageBanner(message = "Refreshing local mod library…", tone = MessageTone.Info)
         }
     }
 
@@ -439,7 +439,7 @@ private fun LazyGridScope.modLibraryHeaderItems(
 
     if (state.isLoading) {
         fullSpanItem {
-            WorkshopMessageBanner(message = "正在刷新本地模组库", tone = MessageTone.Info)
+            WorkshopMessageBanner(message = "Refreshing local mod library…", tone = MessageTone.Info)
         }
     }
 
@@ -481,13 +481,13 @@ private fun ModLibrarySummaryCard(
     onClearFilters: () -> Unit,
 ) {
     ScreenSummaryCard(
-        title = "模组库",
+        title = "Mod Library",
         subtitle = state.displayMode.screenSubtitle(),
         metrics = listOf(
-            "模组 ${filteredMetricText(summaryData.visibleMods, summaryData.totalMods)}",
-            "版本 ${filteredMetricText(summaryData.visibleVersions, summaryData.totalVersions)}",
-            "文件 ${filteredMetricText(summaryData.visibleFiles, summaryData.totalFiles)}",
-            "可更新 ${filteredMetricText(summaryData.visibleUpdateAvailable, summaryData.totalUpdateAvailable)}",
+            "Mods ${filteredMetricText(summaryData.visibleMods, summaryData.totalMods)}",
+            "Versions ${filteredMetricText(summaryData.visibleVersions, summaryData.totalVersions)}",
+            "Files ${filteredMetricText(summaryData.visibleFiles, summaryData.totalFiles)}",
+            "Updates Available ${filteredMetricText(summaryData.visibleUpdateAvailable, summaryData.totalUpdateAvailable)}",
         ),
     ) {
         WorkshopOutlinedButton(
@@ -497,10 +497,10 @@ private fun ModLibrarySummaryCard(
         ) {
             Icon(
                 imageVector = Icons.Default.Refresh,
-                contentDescription = "检查模组更新",
+                contentDescription = "Check for Mod Updates",
             )
             Text(
-                text = if (state.updateCheckState.isChecking) "正在检查更新" else "检查模组更新",
+                text = if (state.updateCheckState.isChecking) "Checking for Updates" else "Check for Mod Updates",
             )
         }
 
@@ -519,19 +519,19 @@ private fun ModLibrarySummaryCard(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Text(
-                        text = "筛选与排序",
+                        text = "Filter and Sort",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                     )
                     Text(
-                        text = "搜索、排序和游戏筛选",
+                        text = "Search, sort, and filter by game",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = if (state.filterPanelExpanded) "收起筛选与排序" else "展开筛选与排序",
+                    contentDescription = if (state.filterPanelExpanded) "Collapse Filters and Sorting" else "Expand Filters and Sorting",
                     modifier = Modifier.graphicsLayer {
                         rotationZ = if (state.filterPanelExpanded) 90f else 0f
                     },
@@ -545,14 +545,14 @@ private fun ModLibrarySummaryCard(
                     WorkshopOutlinedTextField(
                         value = state.filterState.searchQuery,
                         onValueChange = onSearchQueryChange,
-                        label = { Text("搜索模组 / 游戏 / ID") },
+                        label = { Text("Search mods, games, or IDs") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         modifier = Modifier.fillMaxWidth(),
                     )
 
                     Text(
-                        text = "排序方式",
+                        text = "Sort By",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                     )
@@ -571,7 +571,7 @@ private fun ModLibrarySummaryCard(
                     }
 
                     Text(
-                        text = "按游戏筛选",
+                        text = "Filter by Game",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                     )
@@ -581,7 +581,7 @@ private fun ModLibrarySummaryCard(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         ModLibrarySelectionChip(
-                            label = "全部游戏",
+                            label = "All Games",
                             selected = state.filterState.selectedGameTitle == null,
                             onClick = { onGameFilterSelected(null) },
                         )
@@ -604,12 +604,12 @@ private fun ModLibrarySummaryCard(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "当前筛选后显示 ${summaryData.visibleMods} 个模组。",
+                    text = "Showing ${summaryData.visibleMods} mods with the current filters.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 WorkshopTextButton(onClick = onClearFilters) {
-                    Text("清空筛选")
+                    Text("Clear Filters")
                 }
             }
         }
@@ -621,7 +621,7 @@ private fun ModLibrarySectionHeading(
     displayMode: ModLibraryDisplayMode,
 ) {
     SectionHeading(
-        title = "已下载模组",
+        title = "Downloaded Mods",
         subtitle = displayMode.sectionSubtitle(),
     )
 }
@@ -631,9 +631,9 @@ private fun FilteredModLibraryEmptyState(
     onClearFilters: () -> Unit,
 ) {
     WorkshopCenteredState(
-        title = "没有符合条件的模组",
-        message = "调整关键词或游戏筛选后再试。",
-        actionLabel = "清空筛选",
+        title = "No Mods Match",
+        message = "Try changing your search term or game filter.",
+        actionLabel = "Clear Filters",
         onAction = onClearFilters,
     )
 }
@@ -718,7 +718,7 @@ private fun currentModLibraryUpdateFeedback(
 ): ModLibraryUpdateFeedback? =
     when {
         state.updateCheckState.isChecking -> ModLibraryUpdateFeedback(
-            message = "正在检查 ${state.items.size} 个模组的创意工坊更新。",
+            message = "Checking Workshop updates for ${state.items.size} mods.",
             tone = ModLibraryUpdateCardTone.Checking,
         )
 
@@ -805,9 +805,9 @@ private fun ModLibraryUpdateStatusCard(
         }
     }
     val title = when (tone) {
-        ModLibraryUpdateCardTone.Normal -> "检查结果"
-        ModLibraryUpdateCardTone.Checking -> "正在检查"
-        ModLibraryUpdateCardTone.Failed -> "检查失败"
+        ModLibraryUpdateCardTone.Normal -> "Check Results"
+        ModLibraryUpdateCardTone.Checking -> "Checking"
+        ModLibraryUpdateCardTone.Failed -> "Check Failed"
     }
     val contentColor = when (tone) {
         ModLibraryUpdateCardTone.Normal -> if (isDark) {
@@ -910,7 +910,7 @@ private fun LargePreviewModLibraryCard(
             ModUpdateStatusText(result = updateResult)
             primaryFile?.let { file ->
                 Text(
-                    text = "最新主文件：${file.userVisiblePath}",
+                    text = "Latest Main File: ${file.userVisiblePath}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
@@ -919,13 +919,13 @@ private fun LargePreviewModLibraryCard(
             }
             if (group.versionCount() > 1) {
                 Text(
-                    text = "当前已保存 ${group.versionCount()} 个版本，最新版本为 ${latestVersion?.versionLabel().orEmpty()}。",
+                    text = "${group.versionCount()} versions are saved. The latest is ${latestVersion?.versionLabel().orEmpty()}.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else if (group.versionCount() == 0) {
                 Text(
-                    text = "当前已加入模组库，尚未下载任何版本。",
+                    text = "This mod is in your library, but no versions have been downloaded yet.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -941,13 +941,13 @@ private fun LargePreviewModLibraryCard(
                 onClick = onOpenDetail,
                 modifier = Modifier.weight(1f),
             ) {
-                Text("查看详情")
+                Text("View Details")
             }
             WorkshopOutlinedButton(
                 onClick = onViewChangeNotes,
                 modifier = Modifier.weight(1f),
             ) {
-                Text("查看更新日志")
+                Text("View Changelog")
             }
         }
 
@@ -961,13 +961,13 @@ private fun LargePreviewModLibraryCard(
                     onClick = { onOpenPrimaryFile(file) },
                     modifier = Modifier.weight(1f),
                 ) {
-                    Text("打开最新")
+                    Text("Open Latest")
                 }
                 WorkshopOutlinedButton(
                     onClick = { onSharePrimaryFile(file) },
                     modifier = Modifier.weight(1f),
                 ) {
-                    Text("分享最新")
+                    Text("Share Latest")
                 }
             }
         }
@@ -1090,7 +1090,7 @@ private fun OverviewModLibraryTile(
 
             if (group.versionCount() > 1) {
                 OverviewTileBadge(
-                    text = "${group.versionCount()} 个版本",
+                    text = "${group.versionCount()} versions",
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                         .padding(8.dp),
@@ -1140,7 +1140,7 @@ private fun BoxScope.OverviewModLibraryContextMenu(
         modifier = Modifier.widthIn(min = 220.dp, max = 280.dp),
     ) {
         WorkshopPopupMenuItem(
-            text = { Text("查看详情") },
+            text = { Text("View Details") },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Info,
@@ -1150,7 +1150,7 @@ private fun BoxScope.OverviewModLibraryContextMenu(
             onClick = onOpenDetail,
         )
         WorkshopPopupMenuItem(
-            text = { Text("查看更新日志") },
+            text = { Text("View Changelog") },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Description,
@@ -1161,7 +1161,7 @@ private fun BoxScope.OverviewModLibraryContextMenu(
         )
         onOpenPrimaryFile?.let { action ->
             WorkshopPopupMenuItem(
-                text = { Text("打开最新主文件") },
+                text = { Text("Open Latest Main File") },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.FolderOpen,
@@ -1173,7 +1173,7 @@ private fun BoxScope.OverviewModLibraryContextMenu(
         }
         onSharePrimaryFile?.let { action ->
             WorkshopPopupMenuItem(
-                text = { Text("分享最新主文件") },
+                text = { Text("Share Latest Main File") },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Share,
@@ -1235,9 +1235,9 @@ private fun overviewBadgeContentColor(result: ModUpdateCheckResult?): Color =
 
 private fun overviewStatusLabel(result: ModUpdateCheckResult?): String? =
     when (result?.status) {
-        ModUpdateCheckStatus.UpdateAvailable -> "更新"
-        ModUpdateCheckStatus.Failed -> "失败"
-        ModUpdateCheckStatus.Checking -> "检查中"
+        ModUpdateCheckStatus.UpdateAvailable -> "Update"
+        ModUpdateCheckStatus.Failed -> "Failed"
+        ModUpdateCheckStatus.Checking -> "Checking"
         ModUpdateCheckStatus.UpToDate,
         ModUpdateCheckStatus.Unknown,
         null,
@@ -1273,7 +1273,7 @@ private fun CompactListModLibraryCard(
                         overflow = TextOverflow.Ellipsis,
                     )
                     Text(
-                        text = "${group.gameTitle} · ${group.versionCount()} 个版本 · ${group.totalFileCount()} 个文件",
+                        text = "${group.gameTitle} · ${group.versionCount()} versions · ${group.totalFileCount()} files",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -1281,7 +1281,7 @@ private fun CompactListModLibraryCard(
                     )
                     if (latestVersion != null) {
                         Text(
-                            text = "最新版本：${latestVersion.versionLabel()}",
+                            text = "Latest Version: ${latestVersion.versionLabel()}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,
@@ -1289,7 +1289,7 @@ private fun CompactListModLibraryCard(
                         )
                     } else {
                         Text(
-                            text = "当前仅加入模组库，尚未下载版本",
+                            text = "This mod is in your library, but no version has been downloaded yet.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,
@@ -1310,7 +1310,7 @@ private fun CompactListModLibraryCard(
                 onClick = onViewChangeNotes,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("查看更新日志")
+                Text("View Changelog")
             }
         }
     }
@@ -1320,9 +1320,9 @@ private fun buildModGroupMetrics(group: DownloadedModGroup): List<String> {
     val latestVersion = group.latestVersionOrNull()
     val updateReferenceEntry = group.updateReferenceEntry()
     return listOf(
-        "版本 ${group.versionCount()}",
-        "文件 ${group.totalFileCount()}",
-        "同步 ${formatModLibraryTimestamp((latestVersion ?: updateReferenceEntry).storedAtMillis)}",
+        "Versions ${group.versionCount()}",
+        "Files ${group.totalFileCount()}",
+        "Synced ${formatModLibraryTimestamp((latestVersion ?: updateReferenceEntry).storedAtMillis)}",
     )
 }
 
